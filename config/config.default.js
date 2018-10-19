@@ -100,7 +100,7 @@ module.exports = appInfo => {
   config.weibo = {
     appKey: '',
     appSecret: '',
-    redirect: 'http://passport.ciyuan.site/oauth/weibo_login',
+    redirect: 'http://passport.sketch2html.net/oauth/weibo_login',
   };
 
   config.aliyun = {
@@ -120,15 +120,9 @@ module.exports = appInfo => {
     },
   };
 
-  config.host = 'http://ciyuan.site';
-  config.hostAssets = '//zhuanquan.xin';
-  config.hostPassport = 'http://passport.ciyuan.site';
-  config.hostMy = 'http://my.ciyuan.site';
-  config.hostAudio = 'http://audio.ciyuan.site';
-  config.hostVideo = 'http://video.ciyuan.site';
-  config.hostImage = 'http://image.ciyuan.site';
-  config.hostText = 'http://text.ciyuan.site';
-  config.hostUpload = 'http://upload.ciyuan.site';
+  config.host = 'http://sketch2html.net';
+  config.hostAssets = '//sketch2code.net';
+  config.hostPassport = 'http://passport.sketch2html.net';
 
   return config;
 };
