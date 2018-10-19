@@ -4,12 +4,12 @@ module.exports = appInfo => {
   const config = {};
 
   // use for cookie sign key, should change to your own and keep security
-  config.keys = 'sketch2code.net';
+  config.keys = 'sketch2html.net';
 
   config.session = {
     key: 'sessionid',
     maxAge: 15 * 24 * 3600 * 1000,
-    domain: 'sketch2code.net',
+    domain: 'sketch2html.net',
   };
 
   config.middleware = ['jsConfig', 'report'];
@@ -54,63 +54,6 @@ module.exports = appInfo => {
         delegate: 'model.user',
         baseDir: 'model/user',
         database: 'user',
-        define: {
-          freezeTableName: true,
-          underscored: true,
-          timestamps: false,
-          charset: 'utf8mb4',
-          dialectOptions: {
-            collate: 'utf8mb4_unicode_ci',
-          },
-        },
-      },
-      {
-        dialect: 'mysql',
-        host: '',
-        port: '3306',
-        username: 'root',
-        password: '',
-        delegate: 'model.audio',
-        baseDir: 'model/audio',
-        database: 'audio',
-        define: {
-          freezeTableName: true,
-          underscored: true,
-          timestamps: false,
-          charset: 'utf8mb4',
-          dialectOptions: {
-            collate: 'utf8mb4_unicode_ci',
-          },
-        },
-      },
-      {
-        dialect: 'mysql',
-        host: '',
-        port: '3306',
-        username: 'root',
-        password: '',
-        delegate: 'model.video',
-        baseDir: 'model/video',
-        database: 'video',
-        define: {
-          freezeTableName: true,
-          underscored: true,
-          timestamps: false,
-          charset: 'utf8mb4',
-          dialectOptions: {
-            collate: 'utf8mb4_unicode_ci',
-          },
-        },
-      },
-      {
-        dialect: 'mysql',
-        host: '',
-        port: '3306',
-        username: 'root',
-        password: '',
-        delegate: 'model.work',
-        baseDir: 'model/work',
-        database: 'work',
         define: {
           freezeTableName: true,
           underscored: true,
