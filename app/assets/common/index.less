@@ -1,0 +1,269 @@
+*,
+:after,
+:before{
+  -webkit-tap-highlight-color:transparent;
+  -webkit-overflow-scrolling:touch;
+}
+
+blockquote,
+body,
+dd,
+div,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+legend,
+li,
+ol,
+p,
+td,
+textarea,
+th,
+ul,
+pre{
+  margin:0;
+  padding:0;
+}
+
+table{
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+fieldset,
+img{
+  border:0;
+}
+
+li{
+  list-style:none;
+}
+
+caption,
+th{
+  text-align:left;
+}
+
+q:after,
+q:before{
+  content:"";
+}
+
+input[type="password"]{
+  ime-mode:disabled;
+}
+
+:focus{
+  outline:0;
+}
+
+html{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  font-size:100px;
+  min-width:1000px;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  margin:0;
+  padding:0.44rem 0 0;
+  //user-select:none;
+  box-sizing:border-box;
+  background:transparent;
+  width:100%;
+  min-width:1000px;
+  min-height:100%;
+}
+
+a,
+img{
+  -webkit-touch-callout:none;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+pre{
+  font-size:12px;
+  line-height:1.5;
+  font-family:
+          // System Font            // https://www.webkit.org/blog/3709/using-the-system-font-in-web-content/
+          -apple-system,            // OSX ^10.11 & iOS ^9  San Francisco & 苹方
+
+            // English First
+          "Helvetica Neue",         // OSX
+          "Arial",                  // Win "Helvetica"
+            //" Segoe UI",            // Win ^8
+
+            // Chinese Fallback
+          "PingFang SC",            // OSX ^10.11 & iOS ^9  苹方（华康信凭黑）
+          "Hiragino Sans GB",       // OSX ^10.6            冬青黑体
+          "STHeiti",                // OSX <10.6  & iOS <9  华文黑体
+          "Microsoft YaHei",        // Win                  微软雅黑
+          "Microsoft JhengHei",     // Win                  微软正黑
+          "Source Han Sans SC",     // SourceHan - begin    思源黑体
+          "Noto Sans CJK SC",
+          "Source Han Sans CN",
+          "Noto Sans SC",
+          "Source Han Sans TC",
+          "Noto Sans CJK TC",       // SourceHan - end
+          "WenQuanYi Micro Hei",    // Linux                文泉驿微米黑
+          SimSun,                   // Win old              中易宋体
+          sans-serif;               // System Fallback
+}
+body,button,input,select,textarea{
+  color:#333;
+}
+
+input{
+  line-height:normal;
+}
+
+a{
+  color:#0AE;
+  text-decoration:none;
+  &:hover{
+    color:#E31;
+    text-shadow:1px 1px 1px rgba(66, 66, 0, 0.1);
+  }
+}
+
+.fn-clear:after{
+  visibility:hidden;
+  display:block;
+  font-size:0;
+  content:" ";
+  clear:both;
+  height:0;
+}
+
+.fn-hide{
+  display:none !important;
+}
+
+.fn-hidden{
+  visibility:hidden !important;
+}
+
+.fn-zero{
+  height:0 !important;
+  overflow:hidden !important;
+}
+
+.g-wrap{
+  margin:0 auto;
+  width:10rem;
+}
+
+#g-top{
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:0.4rem;
+  background:rgba(252, 252, 252, 0.8);
+  border-bottom:1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);
+  .g-wrap{
+    position:relative;
+  }
+  .nav{
+    li{
+      position:relative;
+      float:left;
+      margin-right:0.1rem;
+      &:first-child:after{
+        position:absolute;
+        top:0.1rem;
+        bottom:0.1rem;
+        right:0.05rem;
+        width:0;
+        border-right:1px dotted #EEE;
+        content:' ';
+      }
+    }
+    a{
+      display:block;
+      line-height:0.4rem;
+      transition:transform 0.2s;
+      &:hover{
+        transform:translateY(0.01rem);
+      }
+    }
+    .index{
+      margin-right:0.2rem;
+      font-size:0.2rem;
+      color:#666;
+      text-shadow:1px 1px 1px rgba(0, 0, 0, 0.1);
+      &:hover{
+        color:#0AE;
+        text-decoration:none;
+        transform:translateX(0.02rem);
+      }
+    }
+  }
+  .i{
+    position:absolute;
+    top:0;
+    right:0;
+    li{
+      float:left;
+      margin-left:0.1rem;
+    }
+    a{
+      display:block;
+      line-height:0.4rem;
+      transition:transform 0.2s;
+      &:hover{
+        transform:translateY(0.01rem);
+      }
+    }
+    img{
+      display:inline-block;
+      margin-right:0.05rem;
+      width:0.32rem;
+      height:0.32rem;
+      border-radius:100%;
+      vertical-align:top;
+      box-shadow:0 0 0.01rem rgba(0, 0, 0.1);
+      transform:translateY(0.04rem);
+    }
+  }
+}
+
+@font-face {
+  font-family:'iconfont';  /* project id 881544 */
+  src:url('iconfont.eot');
+  src:url('iconfont.eot?#iefix') format('embedded-opentype'),
+  url('iconfont.woff') format('woff'),
+  url('iconfont.ttf') format('truetype'),
+  url('iconfont.svg#iconfont') format('svg');
+  font-weight:normal;
+  font-style:normal;
+}
+
+@media screen and (min-device-width: 1366px) {
+  .g-wrap{
+    width:12.8rem;
+  }
+}
+
+@media screen and (min-device-width: 1680px) {
+  .g-wrap{
+    width:14.4rem;
+  }
+}

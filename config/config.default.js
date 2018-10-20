@@ -97,12 +97,6 @@ module.exports = appInfo => {
     longTime: 1800,
   };
 
-  config.weibo = {
-    appKey: '',
-    appSecret: '',
-    redirect: 'http://passport.sketch2html.net/oauth/weibo_login',
-  };
-
   config.aliyun = {
     oss: {
       region: '',
@@ -120,9 +114,10 @@ module.exports = appInfo => {
     },
   };
 
-  config.host = 'http://sketch2html.net';
+  config.host = '//sketch2html.net';
   config.hostAssets = '//sketch2code.net';
-  config.hostPassport = 'http://passport.sketch2html.net';
+  config.hostPassport = '//passport.sketch2html.net';
+  config.hostMy = '//my.sketch2html.net';
 
   return config;
 };

@@ -14,6 +14,16 @@ module.exports = app => {
       type: Sequelize.JSON,
       allowNull: false,
     },
+    row: {
+      type: Sequelize.TINYINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 3,
+    },
+    col: {
+      type: Sequelize.TINYINT.UNSIGNED,
+      allowNull: false,
+      defaultValue: 3,
+    },
     num: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
@@ -32,8 +42,12 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'num_create_time',
-        fields: ['num', 'create_time'],
+        name: 'num',
+        fields: ['num'],
+      },
+      {
+        name: 'col_row',
+        fields: ['col', 'row'],
       },
     ],
     comment: '基本布局数据',
