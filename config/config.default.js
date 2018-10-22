@@ -94,7 +94,7 @@ module.exports = appInfo => {
       db: 0,
     },
     time: 60,
-    longTime: 1800,
+    longTime: 600,
   };
 
   config.aliyun = {

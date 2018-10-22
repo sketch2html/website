@@ -1,0 +1,83 @@
+.passport-login{
+  .login{
+    margin:0.5rem auto;
+    width:4.1rem;
+    .line{
+      margin-bottom:0.1rem;
+      &.right{
+        text-align:right;
+      }
+    }
+    .lab{
+      display:inline-block;
+      width:1rem;
+      font-size:0.14rem;
+    }
+    input[type="text"],input[type="password"]{
+      padding:0 0.1rem;
+      width:2.8rem;
+      height:0.36rem;
+      border:1px solid #CCC;
+      border-radius:0.03rem;
+    }
+    input[type="checkbox"]{
+      margin-right:0.05rem;
+    }
+    small{
+      margin-left:0.1rem;
+      color:#AAA;
+    }
+    a{
+      margin-left:0.1rem;
+    }
+    button{
+      display:block;
+      margin:0.2rem auto;
+      width:1.2rem;
+      height:0.4rem;
+      background:#0AE;
+      border-radius:0.05rem;
+      border:none;
+      color:#FFF;
+      font-size:0.16rem;
+      cursor:pointer;
+      &:disabled{
+        background:#CCC;
+      }
+    }
+  }
+  .oauth{
+    margin:0.5rem auto;
+    text-align:center;
+    li{
+      display:inline-block;
+      margin:0 0.1rem;
+      a{
+        display:block;
+        padding-top:0.35rem;
+        min-width:0.32rem;
+        &.weibo:before{
+          display:block;
+          font-size:0.32rem;
+          font-family:iconfont;
+          content:'\e73c';
+          color:#e85e5f;
+        }
+        &.weixin:before{
+          display:block;
+          font-size:0.32rem;
+          font-family:iconfont;
+          content:'\e73b';
+          color:#54b576;
+        }
+        &.qq:before{
+          display:block;
+          font-size:0.32rem;
+          font-family:iconfont;
+          content:'\e73e';
+          color:#38a6db;
+        }
+      }
+    }
+  }
+}
