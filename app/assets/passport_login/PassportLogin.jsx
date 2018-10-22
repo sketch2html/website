@@ -60,7 +60,7 @@ class PassportLogin extends migi.Component {
           <label><input type="checkbox" checked={this.remember}/>记住密码</label>
           <small>不是自己的电脑不要勾选此项</small>
         </div>
-        <button disabled={this.name || !this.password}>登录</button>
+        <button disabled={!this.name || !this.password}>登录</button>
       </form>
     </div>;
   }

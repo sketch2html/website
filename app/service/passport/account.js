@@ -18,7 +18,7 @@ class Service extends egg.Service {
         message: '密码不能为空~',
       };
     }
-    const { app, ctx, service, } = this;
+    const { app, ctx, service } = this;
     let check = await app.model.user.User.findOne({
       attributes: [
         'id'
@@ -60,7 +60,7 @@ class Service extends egg.Service {
         message: '密码不能为空~',
       };
     }
-    const { app, ctx, service, } = this;
+    const { app, ctx, service } = this;
     let check = await app.model.passport.Account.findOne({
       attributes: [
         ['user_id', 'userId']
@@ -118,7 +118,7 @@ class Service extends egg.Service {
         message: '密码不能为空~',
       };
     }
-    const { app, ctx, service, } = this;
+    const { app, ctx, service } = this;
     let check = await app.model.passport.Account.findOne({
       attributes: [
         ['user_id', 'userId']
@@ -152,6 +152,12 @@ class Service extends egg.Service {
       };
     }
     let user = await service.user.user.info(check.id);
+    if(user.isDelete) {
+      return {
+        success: false,
+        message: '用户名和密码不匹配~',
+      };
+    }
     ctx.session.uid = user.id;
     ctx.session.nickname = user.nickname;
     ctx.session.headUrl = user.headUrl;
@@ -176,7 +182,7 @@ class Service extends egg.Service {
         message: '密码不能为空~',
       };
     }
-    const { app, ctx, } = this;
+    const { app, ctx } = this;
     let cacheKey = 'codeRegister_' + phone;
     let c = await app.redis.get(cacheKey);
     if(!c) {
@@ -275,7 +281,7 @@ class Service extends egg.Service {
         message: '密码不能为空~',
       };
     }
-    const { app, ctx, } = this;
+    const { app, ctx } = this;
     let cacheKey = 'codeRegister_' + email;
     let c = await app.redis.get(cacheKey);
     if(!c) {
