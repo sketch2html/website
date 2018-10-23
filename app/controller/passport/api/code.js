@@ -4,7 +4,7 @@ const egg = require('egg');
 
 class Controller extends egg.Controller {
   async register() {
-    const { ctx, service, } = this;
+    const { ctx, service } = this;
     let body = ctx.request.body;
     let name = body.name;
     let type = parseInt(body.type);

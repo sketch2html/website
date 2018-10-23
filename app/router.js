@@ -13,4 +13,8 @@ module.exports = app => {
   router.post('/passport/api/exist', controller.passport.api.index.exist);
   router.post('/passport/api/register', app.middlewares.needNotLoginJson(), controller.passport.api.index.register);
   router.post('/passport/api/code/register', app.middlewares.needNotLoginJson(), controller.passport.api.code.register);
+
+  router.get('/layout', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.index);
+  router.get('/layout/2_2_3', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2_3);
+  router.post('/layout/api/gen', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.gen);
 };

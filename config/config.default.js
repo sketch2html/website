@@ -114,10 +114,11 @@ module.exports = appInfo => {
     },
   };
 
-  config.host = '//sketch2html.net';
-  config.hostAssets = '//sketch2code.net';
-  config.hostPassport = '//passport.sketch2html.net';
-  config.hostMy = '//my.sketch2html.net';
+  config.host = 'https://sketch2html.net';
+  config.hostAssets = 'https://sketch2code.net';
+  config.hostPassport = 'https://passport.sketch2html.net';
+  config.hostLayout = 'https://layout.sketch2html.net';
+  config.hostMy = 'https://my.sketch2html.net';
 
   return config;
 };

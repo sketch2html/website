@@ -29,6 +29,10 @@ module.exports = app => {
       allowNull: false,
       defaultValue: 3,
     },
+    type: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
     create_time: {
       type: Sequelize.DATE,
       allowNull: false,
@@ -42,8 +46,8 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'num',
-        fields: ['num'],
+        name: 'num_col_row',
+        fields: ['num', 'col', 'row'],
       },
       {
         name: 'col_row',

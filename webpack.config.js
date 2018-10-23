@@ -8,6 +8,8 @@ module.exports = {
     passport_index: './app/assets/passport_index/index.jsx',
     passport_login: './app/assets/passport_login/index.jsx',
     passport_register: './app/assets/passport_register/index.jsx',
+    layout_index: './app/assets/layout_index/index.jsx',
+    layout_detail: './app/assets/layout_detail/index.jsx',
   },
   output: {
     path: __dirname + '/app/public',

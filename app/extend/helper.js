@@ -91,7 +91,7 @@ ${(Array.isArray(data.css) ? data.css : [data.css]).filter((item) => {
 <div id="g-top">
   <div class="g-wrap">
     <ul class="nav fn-clear">
-      <li><a href="${ this.app.config.host }" class="index">首页</a></li>
+      <li><a href="${ this.app.config.host }" class="index">sketch2html</a></li>
     </ul>
     <ul class="i fn-clear">
       ${ uid

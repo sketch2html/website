@@ -4,7 +4,7 @@ const egg = require('egg');
 
 class Controller extends egg.Controller {
   async login() {
-    const { ctx, service, } = this;
+    const { ctx, service } = this;
     let body = ctx.request.body;
     let name = body.name;
     let password = body.password;
@@ -27,13 +27,13 @@ class Controller extends egg.Controller {
   }
 
   async exist() {
-    const { ctx, } = this;
+    const { ctx } = this;
     ctx.session = null;
     ctx.body = ctx.helper.okJSON();
   }
 
   async register() {
-    const { ctx, service, } = this;
+    const { ctx, service } = this;
     let body = ctx.request.body;
     let name = body.name;
     let password = body.password;

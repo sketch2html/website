@@ -36,6 +36,12 @@ class Service extends egg.Service {
       };
     }
     let user = await service.user.user.info(check.id);
+    if(user.isDelete) {
+      return {
+        success: false,
+        message: '用户名和密码不匹配~',
+      };
+    }
     ctx.session.uid = user.id;
     ctx.session.nickname = user.nickname;
     ctx.session.headUrl = user.headUrl;
@@ -94,6 +100,12 @@ class Service extends egg.Service {
       };
     }
     let user = await service.user.user.info(check.id);
+    if(user.isDelete) {
+      return {
+        success: false,
+        message: '用户名和密码不匹配~',
+      };
+    }
     ctx.session.uid = user.id;
     ctx.session.nickname = user.nickname;
     ctx.session.headUrl = user.headUrl;

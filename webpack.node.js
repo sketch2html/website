@@ -4,6 +4,8 @@ module.exports = {
     passport_index: './app/view/passport_index.jsx',
     passport_login: './app/view/passport_login.jsx',
     passport_register: './app/view/passport_register.jsx',
+    layout_index: './app/view/layout_index.jsx',
+    layout_detail: './app/view/layout_detail.jsx',
   },
   output: {
     path: __dirname + '/app/view',

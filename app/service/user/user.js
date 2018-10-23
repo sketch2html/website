@@ -7,7 +7,7 @@ class Service extends egg.Service {
     if(!id) {
       return;
     }
-    const { app, ctx } = this;
+    const { app } = this;
     let cacheKey = 'userInfo_' + id;
     let res = await app.redis.get(cacheKey);
     if(res) {
@@ -26,6 +26,30 @@ class Service extends egg.Service {
       ],
       where: {
         id,
+      },
+      raw: true,
+    });
+    app.redis.setex(cacheKey, app.config.redis.time, JSON.stringify(res));
+    return res;
+  }
+
+  async admin(id) {
+    if(!id) {
+      return;
+    }
+    const { app } = this;
+    let cacheKey = 'admin_' + id;
+    let res = await app.redis.get(cacheKey);
+    if(res) {
+      return JSON.parse(res);
+    } console.log(app.model.user);
+    res = await app.model.user.Admin.findOne({
+      attributes: [
+        'id',
+        'level',
+      ],
+      where: {
+        user_id: id,
       },
       raw: true,
     });

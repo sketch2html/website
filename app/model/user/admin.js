@@ -33,9 +33,9 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'user_id_level',
+        name: 'user_id',
         unique: true,
-        fields: ['user_id', 'level'],
+        fields: ['user_id'],
       },
     ],
     comment: '管理员信息',
