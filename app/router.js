@@ -16,5 +16,6 @@ module.exports = app => {
 
   router.get('/layout', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.index);
   router.get('/layout/2_2_3', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2_3);
+  router.get('/layout/2_2_4', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2_4);
   router.post('/layout/api/gen', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.gen);
 };

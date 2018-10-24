@@ -11,6 +11,9 @@ class LayoutIndex extends migi.Component {
         <li>
           <a href="/2_2_3">2行2列，3个</a>
         </li>
+        <li>
+          <a href="/2_2_4">2行2列，4个</a>
+        </li>
       </ul>
     </div>;
   }

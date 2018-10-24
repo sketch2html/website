@@ -10,6 +10,8 @@ class LayoutDetail extends migi.Component {
 
   @bind list
   @bind dis
+  @bind hAlign
+  @bind vAlign
 
   gen() {
     let col = this.props.col;
@@ -21,11 +23,22 @@ class LayoutDetail extends migi.Component {
     let vAlign = [];
     let list = [];
     for(let i = 0; i < num; i++) {
-      list.push({
+      let item = {
         type: Math.random() > 0.5 ? 1 : 0,
         width: 10 + Math.floor(Math.random() * 100),
         height: 10 + Math.floor(Math.random() * 100),
-      });
+      };
+      if(!item.type) {
+        item.fontSize = 10 + Math.ceil(Math.random() * 20);
+        item.fontWeight = 200;
+        if(Math.random() > 0.5) {
+          item.fontWeight += 200;
+          if(Math.random() > 0.5) {
+            item.fontWeight += 300;
+          }
+        }
+      }
+      list.push(item);
     }
     let x = 0;
     let y = 0;
@@ -33,6 +46,9 @@ class LayoutDetail extends migi.Component {
       let start = Math.random() > 0.5;
       let center = Math.random() > 0.5;
       let end = Math.random() > 0.5;
+      if(start && center || center && end || start && end) {
+        start = center = end = true;
+      }
       hAlign.push({
         start,
         center,
@@ -47,13 +63,8 @@ class LayoutDetail extends migi.Component {
           list[j].height = max;
         }
       }
-      else if(start && center || center && end) {
-        for(let j = col * i; j < col * (i + 1) && j < num; j++) {
-          list[j].height = Math.max(list[j].height, Math.ceil(max * 0.5));
-        }
-      }
       for(let j = col * i; j < col * (i + 1) && j < num; j++) {
-        if(start) {
+        if(start && end || start) {
           list[j].y = y;
         }
         else if(center) {
@@ -72,6 +83,9 @@ class LayoutDetail extends migi.Component {
       let start = Math.random() > 0.5;
       let center = Math.random() > 0.5;
       let end = Math.random() > 0.5;
+      if(start && center || center && end || start && end) {
+        start = center = end = true;
+      }
       vAlign.push({
         start,
         center,
@@ -86,13 +100,8 @@ class LayoutDetail extends migi.Component {
           list[j].width = max;
         }
       }
-      else if(start && center || center && end) {
-        for(let j = i; j < num; j += col) {
-          list[j].width = Math.max(list[j].width, Math.ceil(max * 0.5));
-        }
-      }
       for(let j = i; j < num; j += col) {
-        if(start) {
+        if(start && end || start) {
           list[j].x = x;
         }
         else if(center) {
@@ -108,6 +117,8 @@ class LayoutDetail extends migi.Component {
       x += max + hMargin;
     }
     this.list = list;
+    this.hAlign = hAlign;
+    this.vAlign = vAlign;
   }
   clickCol() {
     if(this.dis) {
@@ -181,11 +192,15 @@ class LayoutDetail extends migi.Component {
         <button disabled={this.dis} onClick={this.clickRow}>2行</button>
         <button disabled={this.dis} onClick={this.click}>不确定</button>
       </div>
+      <p>{JSON.stringify(this.hAlign)}</p>
+      <p>{JSON.stringify(this.vAlign)}</p>
+      <p>{JSON.stringify(this.list)}</p>
       <ul class="list">
         {
           (this.list || []).map(item => {
             return <li class={`t${item.type}`}
-                       style={`left:${item.x}px;top:${item.y}px;width:${item.width}px;height:${item.height}px`}/>;
+                       style={`left:${item.x}px;top:${item.y}px;width:${item.width}px;height:${item.height}px`}>{item.type
+              ? 1 : (item.fontSize + ',' + item.fontWeight)}</li>;
           })
         }
       </ul>

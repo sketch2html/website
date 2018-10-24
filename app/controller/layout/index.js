@@ -16,6 +16,15 @@ class Controller extends egg.Controller {
       num: 3,
     });
   }
+
+  async d2_2_4() {
+    const { ctx } = this;
+    await ctx.render('layout_detail', {
+      col: 2,
+      row: 2,
+      num: 4,
+    });
+  }
 }
 
 module.exports = Controller;
