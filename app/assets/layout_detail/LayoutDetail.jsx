@@ -28,14 +28,30 @@ class LayoutDetail extends migi.Component {
         width: 10 + Math.floor(Math.random() * 100),
         height: 10 + Math.floor(Math.random() * 100),
       };
-      if(!item.type) {
+      if(item.type) {
         item.fontSize = 10 + Math.ceil(Math.random() * 20);
         item.fontWeight = 200;
-        if(Math.random() > 0.5) {
+        item.lineHeight = 1 + Math.floor(Math.random() * 3);
+        let r = Math.random();
+        if(r > 0.66) {
           item.fontWeight += 200;
-          if(Math.random() > 0.5) {
-            item.fontWeight += 300;
-          }
+        }
+        else if(r > 0.33) {
+          item.fontWeight += 500;
+        }
+        if(item.height > item.fontSize * item.lineHeight * 2) {
+          let mod = item.height % (item.fontSize * item.lineHeight);
+          item.height -= mod;
+          item.singleLine = false;
+          item.type = 2;
+        }
+        else if(item.height = item.fontSize * item.lineHeight * 2) {
+          item.singleLine = false;
+          item.type = 2;
+        }
+        else {
+          item.height = item.fontSize * item.lineHeight;
+          item.singleLine = true;
         }
       }
       list.push(item);
@@ -60,7 +76,14 @@ class LayoutDetail extends migi.Component {
       }
       if(start && end) {
         for(let j = col * i; j < col * (i + 1) && j < num; j++) {
-          list[j].height = max;
+          let item = list[j];
+          item.height = max;
+          if(item.type) {
+            item.type = 1;
+            item.singleLine = true;
+            item.fontSize = item.height;
+            item.lineHeight = 1;
+          }
         }
       }
       for(let j = col * i; j < col * (i + 1) && j < num; j++) {
@@ -97,7 +120,8 @@ class LayoutDetail extends migi.Component {
       }
       if(start && end) {
         for(let j = i; j < num; j += col) {
-          list[j].width = max;
+          let item = list[j];
+          item.width = max;
         }
       }
       for(let j = i; j < num; j += col) {
@@ -200,7 +224,7 @@ class LayoutDetail extends migi.Component {
           (this.list || []).map(item => {
             return <li class={`t${item.type}`}
                        style={`left:${item.x}px;top:${item.y}px;width:${item.width}px;height:${item.height}px`}>{item.type
-              ? 1 : (item.fontSize + ',' + item.fontWeight)}</li>;
+              ? (item.fontSize + ',' + item.fontWeight) : ''}</li>;
           })
         }
       </ul>
