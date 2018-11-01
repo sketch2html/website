@@ -7,17 +7,17 @@ class Controller extends egg.Controller {
     const { ctx, app } = this;
     let body = ctx.request.body;
     let list = body.list;
-    let type = body.type;
+    let classify = body.classify;
     let col = body.col;
     let row = body.row;
     let num = body.num;
     if(!list || !col || !row || !num) {
       ctx.body = ctx.helper.errorJSON('无效参数');
     }
-    if(type === true || type === false) {
+    if(classify === true || classify === false) {
       let res = await app.model.layout.Basic.create({
         data: list,
-        type,
+        classify,
         col,
         row,
         num,

@@ -156,7 +156,7 @@ class LayoutDetail extends migi.Component {
       url: '/api/gen',
       body: {
         list: this.list,
-        type: false,
+        classify: false,
         col,
         row,
         num,
@@ -187,7 +187,7 @@ class LayoutDetail extends migi.Component {
       url: '/api/gen',
       body: {
         list: this.list,
-        type: true,
+        classify: true,
         col,
         row,
         num,
