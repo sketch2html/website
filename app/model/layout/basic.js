@@ -29,7 +29,7 @@ module.exports = app => {
       allowNull: false,
       defaultValue: 3,
     },
-    type: {
+    classify: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
     },
