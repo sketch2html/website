@@ -1,5 +1,14 @@
 'use strict';
 
+const tf = require('@tensorflow/tfjs');
+
+const w = tf.tensor2d([0.0438213, -0.0888119, -5.7993636], [3, 1]);
+const b = 4.612868785858154;
+const f = x => {
+  const h = tf.matMul(x, w).add(b);
+  return tf.sigmoid(h);
+};
+
 class LayoutView extends migi.Component {
   constructor(data) {
     super(data);
@@ -77,8 +86,13 @@ class LayoutView extends migi.Component {
       x.align = alignH - alignV;
     }
 
+    let xs = [x.typeDiff, x.distance, x.align];
+    let res = f([xs]);
+
     return <div class="g-wrap layout-detail">
       <p>{JSON.stringify(x)}</p>
+      <p>{res}</p>
+      <p>{res.get(0, 0) >= 0.5}</p>
       <ul className="list">
         {
           (data || []).map(item => {

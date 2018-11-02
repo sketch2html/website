@@ -42,7 +42,7 @@ class Service extends egg.Service {
     let res = await app.redis.get(cacheKey);
     if(res) {
       return JSON.parse(res);
-    } console.log(app.model.user);
+    }
     res = await app.model.user.Admin.findOne({
       attributes: [
         'id',
