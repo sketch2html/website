@@ -34,7 +34,8 @@ class Controller extends egg.Controller {
     }
     let res = await app.model.layout.Basic.findOne({
       attributes: [
-        'data'
+        'data',
+        'classify'
       ],
       where: {
         id,
@@ -45,7 +46,7 @@ class Controller extends egg.Controller {
       return;
     }
     await ctx.render('layout_view', {
-      data: res.data,
+      item: res,
     });
   }
 }

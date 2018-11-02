@@ -3,9 +3,10 @@
 import LayoutView from '../assets/layout_view/LayoutView.jsx';
 
 export default function(data) {
+  let item = data.item;
 
   let layoutView = migi.preRender(
-    <LayoutView data={data.data}/>
+    <LayoutView item={item}/>
   );
 
   return data.helper.start({
@@ -14,7 +15,7 @@ export default function(data) {
   }) + layoutView + data.helper.end({
     js: '/layout_view.js',
     config: {
-      data: data.data,
+      item,
     },
   });
 };
