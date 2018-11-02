@@ -25,6 +25,29 @@ class Controller extends egg.Controller {
       num: 4,
     });
   }
+
+  async view() {
+    const { ctx, app } = this;
+    let id = parseInt(ctx.params.id);
+    if(!id) {
+      return;
+    }
+    let res = await app.model.layout.Basic.findOne({
+      attributes: [
+        'data'
+      ],
+      where: {
+        id,
+      },
+      raw: true,
+    });
+    if(!res) {
+      return;
+    }
+    await ctx.render('layout_view', {
+      data: res.data,
+    });
+  }
 }
 
 module.exports = Controller;

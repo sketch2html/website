@@ -10,6 +10,7 @@ module.exports = {
     passport_register: './app/assets/passport_register/index.jsx',
     layout_index: './app/assets/layout_index/index.jsx',
     layout_detail: './app/assets/layout_detail/index.jsx',
+    layout_view: './app/assets/layout_view/index.jsx',
   },
   output: {
     path: __dirname + '/app/public',
