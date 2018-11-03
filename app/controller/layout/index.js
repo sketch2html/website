@@ -49,30 +49,6 @@ class Controller extends egg.Controller {
       item: res,
     });
   }
-
-  async preview() {
-    const { ctx, app } = this;
-    let id = parseInt(ctx.params.id);
-    if(!id) {
-      return;
-    }
-    let res = await app.model.layout.Basic.findOne({
-      attributes: [
-        'data',
-        'classify'
-      ],
-      where: {
-        id,
-      },
-      raw: true,
-    });
-    if(!res) {
-      return;
-    }
-    await ctx.render('layout_preview', {
-      item: res,
-    });
-  }
 }
 
 module.exports = Controller;

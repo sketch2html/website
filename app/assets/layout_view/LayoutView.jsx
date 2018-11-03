@@ -92,10 +92,13 @@ class LayoutView extends migi.Component {
     return <div class="g-wrap layout-detail">
       <p>{JSON.stringify(x)}</p>
       <p>{res}</p>
-      <p>{res.get(0, 0) >= 0.5}</p>
+      <p>{`classify: ${classify}, res: ${res.get(0, 0) >= 0.5 ? 1 : 0}`}</p>
       <ul className="list">
         {
           (data || []).map(item => {
+            if(!item) {
+              return <li/>;
+            }
             return <li class={`t${item.type}`}
                        style={`left:${item.x}px;top:${item.y}px;width:${item.width}px;height:${item.height}px`}>{item.type
               ? (item.fontSize + ',' + item.fontWeight) : ''}</li>;
