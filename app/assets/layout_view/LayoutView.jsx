@@ -73,7 +73,6 @@ class LayoutView extends migi.Component {
       // 种类一致性；横竖；最短距离；对齐性变化
       x.typeDiff = ((t0 === t1 ? 1 : 0) + (t2 === t3 ? 1 : 0)) / 2;
       x.distance = Math.min(y2, y3) - Math.max(y0, y1);
-      x.align = alignV - alignH;
     }
     else {
       let x0 = data[0].x + data[0].width;
@@ -83,8 +82,8 @@ class LayoutView extends migi.Component {
 
       x.typeDiff = ((t0 === t2 ? 1 : 0) + (t1 === t3 ? 1 : 0)) / 2;
       x.distance = Math.min(x1, x3) - Math.max(x0, x2);
-      x.align = alignH - alignV;
     }
+    x.align = alignH - alignV;
 
     let xs = [x.typeDiff, x.distance, x.align];
     let res = f([xs]);
