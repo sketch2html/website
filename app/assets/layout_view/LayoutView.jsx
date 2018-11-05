@@ -2,8 +2,8 @@
 
 const tf = require('@tensorflow/tfjs');
 
-const w = tf.tensor2d([0.0438213, -0.0888119, -5.7993636], [3, 1]);
-const b = 4.612868785858154;
+const w = tf.tensor2d([1.6216813, -0.0191256, 4.9162374], [3, 1]);
+const b = -1.6754473447799683;
 const f = x => {
   const h = tf.matMul(x, w).add(b);
   return tf.sigmoid(h);
@@ -86,12 +86,12 @@ class LayoutView extends migi.Component {
     x.align = alignH - alignV;
 
     let xs = [x.typeDiff, x.distance, x.align];
-    let res = f([xs]);
+    let forecast = f([xs]);
 
     return <div class="g-wrap layout-detail">
       <p>{JSON.stringify(x)}</p>
-      <p>{res}</p>
-      <p>{`classify: ${classify}, res: ${res.get(0, 0) >= 0.5 ? 1 : 0}`}</p>
+      <p>{forecast}</p>
+      <p>{`classify: ${classify}, forecast: ${forecast.get(0, 0) >= 0.5 ? 1 : 0}`}</p>
       <ul className="list">
         {
           (data || []).map(item => {
