@@ -1,6 +1,6 @@
 'use strict';
 
-class LayoutDetail extends migi.Component {
+class LayoutJunior extends migi.Component {
   constructor(data) {
     super(data);
     this.on(migi.Event.DOM, () => {
@@ -210,7 +210,7 @@ class LayoutDetail extends migi.Component {
     this.gen();
   }
   render() {
-    return <div class="g-wrap layout-detail">
+    return <div class="g-wrap layout-junior">
       <div class="btn">
         <button disabled={this.dis} onClick={this.clickCol}>2列</button>
         <button disabled={this.dis} onClick={this.clickRow}>2行</button>
@@ -232,4 +232,4 @@ class LayoutDetail extends migi.Component {
   }
 }
 
-export default LayoutDetail;
+export default LayoutJunior;

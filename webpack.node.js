@@ -5,7 +5,8 @@ module.exports = {
     passport_login: './app/view/passport_login.jsx',
     passport_register: './app/view/passport_register.jsx',
     layout_index: './app/view/layout_index.jsx',
-    layout_detail: './app/view/layout_detail.jsx',
+    layout_junior: './app/view/layout_junior.jsx',
+    layout_senior: './app/view/layout_senior.jsx',
     layout_view: './app/view/layout_view.jsx',
   },
   output: {
