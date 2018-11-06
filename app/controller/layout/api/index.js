@@ -15,7 +15,7 @@ class Controller extends egg.Controller {
       ctx.body = ctx.helper.errorJSON('无效参数');
     }
     if(classify === true || classify === false) {
-      let res = await app.model.layout.Basic.create({
+      let res = await app.model.layout.Junior.create({
         data: list,
         classify,
         col,

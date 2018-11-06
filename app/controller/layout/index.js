@@ -41,7 +41,7 @@ class Controller extends egg.Controller {
     if(!id) {
       return;
     }
-    let res = await app.model.layout.Basic.findOne({
+    let res = await app.model.layout.Junior.findOne({
       attributes: [
         'data',
         'classify'

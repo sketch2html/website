@@ -3,7 +3,7 @@
 module.exports = app => {
   const Sequelize = app.Sequelize;
 
-  return app.model.layout.define('basic', {
+  return app.model.layout.define('junior', {
     id: {
       type: Sequelize.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -17,17 +17,14 @@ module.exports = app => {
     row: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      defaultValue: 3,
     },
     col: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      defaultValue: 3,
     },
     num: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      defaultValue: 3,
     },
     classify: {
       type: Sequelize.BOOLEAN,
@@ -62,6 +59,6 @@ module.exports = app => {
         fields: ['classify', 'forecast'],
       },
     ],
-    comment: '基本布局数据',
+    comment: '初级布局数据',
   });
 };

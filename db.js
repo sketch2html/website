@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 async function layout(u, p, host) {
-  let basic = require('./app/model/layout/basic');
+  let basic = require('./app/model/layout/junior');
   let sequelize = new Sequelize('layout', u, p, {
     host: host,
     dialect: 'mysql',
