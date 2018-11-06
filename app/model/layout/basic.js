@@ -35,7 +35,7 @@ module.exports = app => {
     },
     forecast: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
     },
     create_time: {
       type: Sequelize.DATE,
@@ -58,8 +58,8 @@ module.exports = app => {
         fields: ['col', 'row'],
       },
       {
-        name: 'forecast_classify',
-        fields: ['forecast', 'classify'],
+        name: 'classify_forecast',
+        fields: ['classify', 'forecast'],
       },
     ],
     comment: '基本布局数据',
