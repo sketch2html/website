@@ -59,7 +59,7 @@
     "webpack-cli": "^3.1.1"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "author": "army8735 <army8735@qq.com>"
 }
