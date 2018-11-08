@@ -27,11 +27,11 @@ module.exports = app => {
       allowNull: false,
     },
     classify: {
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.TINYINT,
       allowNull: false,
     },
     forecast: {
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.TINYINT,
       allowNull: true,
     },
     create_time: {

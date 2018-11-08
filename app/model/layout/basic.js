@@ -3,7 +3,7 @@
 module.exports = app => {
   const Sequelize = app.Sequelize;
 
-  return app.model.layout.define('senior', {
+  return app.model.layout.define('basic', {
     id: {
       type: Sequelize.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -29,7 +29,6 @@ module.exports = app => {
     classify: {
       type: Sequelize.TINYINT,
       allowNull: false,
-      comment: '0 2行独立；1 2行；2 3列；3 1:2且2行；4 1:2且2列；5 2:1且2行；6 2:1且两列',
     },
     forecast: {
       type: Sequelize.TINYINT,
@@ -60,6 +59,6 @@ module.exports = app => {
         fields: ['classify', 'forecast'],
       },
     ],
-    comment: '高级布局数据',
+    comment: '基础布局数据',
   });
 };

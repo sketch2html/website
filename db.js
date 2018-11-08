@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 
 async function layout(u, p, host) {
-  let basic = require('./app/model/layout/junior');
+  let basic = require('./app/model/layout/basic');
+  let junior = require('./app/model/layout/junior');
+  let senior = require('./app/model/layout/senior');
   let sequelize = new Sequelize('layout', u, p, {
     host: host,
     dialect: 'mysql',
@@ -21,7 +23,21 @@ async function layout(u, p, host) {
       layout: sequelize,
     },
   });
+  junior = junior({
+    Sequelize,
+    model: {
+      layout: sequelize,
+    },
+  });
+  senior = senior({
+    Sequelize,
+    model: {
+      layout: sequelize,
+    },
+  });
   await basic.sync({ alter: true });
+  await junior.sync({ alter: true });
+  await senior.sync({ alter: true });
 }
 async function passport(u, p, host) {
   let oauth = require('./app/model/passport/oauth');
@@ -91,8 +107,8 @@ async function exec() {
   let p = '';
   let host = 'localhost';
   await layout(u, p, host);
-  await passport(u, p, host);
-  await user(u, p, host);
+  // await passport(u, p, host);
+  // await user(u, p, host);
   console.warn('end');
 }
 exec();
