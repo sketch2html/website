@@ -5,5 +5,5 @@ import './index.less';
 import LayoutBasic from './LayoutBasic.jsx';
 
 let layoutBasic = migi.preExist(
-  <LayoutBasic direction={$CONFIG.direction}/>
+  <LayoutBasic />
 );

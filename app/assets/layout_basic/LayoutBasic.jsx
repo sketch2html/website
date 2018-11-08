@@ -103,6 +103,9 @@ class LayoutBasic extends migi.Component {
           if(b.height <= a.height) {
             b.y = a.height - b.height;
           }
+          else {
+            b.y = a.y;
+          }
         }
         else if(center) {
           if(b.height <= a.height) {
@@ -130,6 +133,9 @@ class LayoutBasic extends migi.Component {
         else if(end) {
           if(b.width <= a.width) {
             b.x = a.width - b.width;
+          }
+          else {
+            b.x = a.x;
           }
         }
         else if(center) {

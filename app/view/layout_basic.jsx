@@ -3,10 +3,9 @@
 import LayoutBasic from '../assets/layout_basic/LayoutBasic.jsx';
 
 export default function(data) {
-  let direction = data.direction;
 
   let layoutBasic = migi.preRender(
-    <LayoutBasic direction={direction}/>
+    <LayoutBasic />
   );
 
   return data.helper.start({
@@ -15,7 +14,6 @@ export default function(data) {
   }) + layoutBasic + data.helper.end({
     js: '/layout_basic.js',
     config: {
-      direction,
     },
   });
 };
