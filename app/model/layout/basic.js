@@ -14,21 +14,18 @@ module.exports = app => {
       type: Sequelize.JSON,
       allowNull: false,
     },
-    row: {
-      type: Sequelize.TINYINT.UNSIGNED,
-      allowNull: false,
-    },
-    col: {
-      type: Sequelize.TINYINT.UNSIGNED,
-      allowNull: false,
-    },
     num: {
+      type: Sequelize.TINYINT.UNSIGNED,
+      allowNull: false,
+    },
+    direction: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
     },
     classify: {
       type: Sequelize.TINYINT,
       allowNull: false,
+      comment: '0成组；1不成组',
     },
     forecast: {
       type: Sequelize.TINYINT,
@@ -47,16 +44,16 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'num_col_row',
-        fields: ['num', 'col', 'row'],
+        name: 'num_direction',
+        fields: ['num', 'direction'],
       },
       {
-        name: 'col_row',
-        fields: ['col', 'row'],
+        name: 'direction',
+        fields: ['direction'],
       },
       {
-        name: 'classify_forecast',
-        fields: ['classify', 'forecast'],
+        name: 'classify_forecast_direction',
+        fields: ['classify', 'forecast', 'direction'],
       },
     ],
     comment: '基础布局数据',

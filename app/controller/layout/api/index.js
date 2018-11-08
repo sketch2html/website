@@ -30,6 +30,27 @@ class Controller extends egg.Controller {
       ctx.body = ctx.helper.errorJSON('无效参数');
     }
   }
+
+  async d1() {
+    const { ctx, app } = this;
+    let body = ctx.request.body;
+    let list = body.list;
+    let classify = body.classify;
+    let direction = body.direction;
+    let num = body.num;
+    if(!list || isNaN(classify) || !num || !direction) {
+      ctx.body = ctx.helper.errorJSON('无效参数');
+    }
+    let res = await app.model.layout.Basic.create({
+      data: list,
+      classify,
+      direction,
+      num,
+    }, {
+      raw: true,
+    });
+    ctx.body = ctx.helper.okJSON(res);
+  }
 }
 
 module.exports = Controller;

@@ -9,6 +9,7 @@ module.exports = {
     passport_login: './app/assets/passport_login/index.jsx',
     passport_register: './app/assets/passport_register/index.jsx',
     layout_index: './app/assets/layout_index/index.jsx',
+    layout_basic: './app/assets/layout_basic/index.jsx',
     layout_junior: './app/assets/layout_junior/index.jsx',
     layout_senior: './app/assets/layout_senior/index.jsx',
     layout_view: './app/assets/layout_view/index.jsx',

@@ -8,6 +8,12 @@ class Controller extends egg.Controller {
     await ctx.render('layout_index', {});
   }
 
+  async d1() {
+    const { ctx } = this;
+    await ctx.render('layout_basic', {
+    });
+  }
+
   async d2_2_3() {
     const { ctx } = this;
     await ctx.render('layout_junior', {
