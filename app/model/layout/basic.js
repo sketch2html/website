@@ -25,11 +25,7 @@ module.exports = app => {
     classify: {
       type: Sequelize.TINYINT,
       allowNull: false,
-      comment: '0成组；1不成组',
-    },
-    forecast: {
-      type: Sequelize.TINYINT,
-      allowNull: true,
+      comment: '0不成组；1成组',
     },
     create_time: {
       type: Sequelize.DATE,
@@ -52,8 +48,8 @@ module.exports = app => {
         fields: ['direction'],
       },
       {
-        name: 'classify_forecast_direction',
-        fields: ['classify', 'forecast', 'direction'],
+        name: 'classify_direction',
+        fields: ['classify', 'direction'],
       },
     ],
     comment: '基础布局数据',

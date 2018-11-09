@@ -26,20 +26,10 @@ class LayoutBasic extends migi.Component {
     if(a.type) {
       a.fontSize = 10 + Math.ceil(Math.random() * 20);
       a.lineHeight = 1 + Math.floor(Math.random() * 3);
-      if(a.height > a.fontSize * a.lineHeight * 2) {
-        let mod = a.height % (a.fontSize * a.lineHeight);
-        a.height -= mod;
-        a.singleLine = false;
-        a.type = 2;
-      }
-      else if(a.height = a.fontSize * a.lineHeight * 2) {
-        a.singleLine = false;
-        a.type = 2;
-      }
-      else {
-        a.height = a.fontSize * a.lineHeight;
-        a.singleLine = true;
-      }
+    }
+    else {
+      a.fontSize = 0;
+      a.lineHeight = 0;
     }
     this.list.push(a);
     this.direction = Math.random() > 0.5;
@@ -52,32 +42,12 @@ class LayoutBasic extends migi.Component {
         height: Math.random() > 0.5 ? a.height : (20 + Math.floor(Math.random() * 100)),
       };
       if(b.type) {
-        if(b.type === 2 && b.type === a.type) {
-          b.fontSize = Math.random() > 0.2 ? a.fontSize : 10 + Math.ceil(Math.random() * 20);
-          b.lineHeight = Math.random() > 0.2 ? a.lineHeight : 1 + Math.floor(Math.random() * 3);
-        }
-        else {
-          b.fontSize = 10 + Math.ceil(Math.random() * 20);
-          b.lineHeight = 1 + Math.floor(Math.random() * 3);
-          if(b.height > b.fontSize * b.lineHeight * 2) {
-            let mod = b.height % (b.fontSize * b.lineHeight);
-            b.height -= mod;
-            b.singleLine = false;
-            b.type = 2;
-          }
-          else if(b.height = b.fontSize * b.lineHeight * 2) {
-            b.singleLine = false;
-            b.type = 2;
-          }
-          else {
-            b.height = b.fontSize * b.lineHeight;
-            b.singleLine = true;
-          }
-        }
-        if(!b.fontSize) {
-          b.fontSize = 10 + Math.ceil(Math.random() * 20);
-          b.lineHeight = 1 + Math.floor(Math.random() * 3);
-        }
+        b.fontSize = a.fontSize && Math.random() > 0.2 ? a.fontSize : 10 + Math.ceil(Math.random() * 20);
+        b.lineHeight = a.fontSize && Math.random() > 0.2 ? a.lineHeight : 1 + Math.floor(Math.random() * 3);
+      }
+      else {
+        b.fontSize = 0;
+        b.lineHeight = 0;
       }
       let start = Math.random() > 0.5;
       let center = Math.random() > 0.5;
@@ -93,7 +63,6 @@ class LayoutBasic extends migi.Component {
           if(a.fontSize) {
             b.fontSize = a.fontSize;
             b.lineHeight = a.lineHeight;
-            b.singleLine = a.singleLine;
           }
         }
         else if(start) {
@@ -124,7 +93,6 @@ class LayoutBasic extends migi.Component {
           if(a.fontSize) {
             b.fontSize = a.fontSize;
             b.lineHeight = a.lineHeight;
-            b.singleLine = a.singleLine;
           }
         }
         else if(start) {
