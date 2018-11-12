@@ -23,7 +23,7 @@ class LayoutBasic extends migi.Component {
   @bind lineConsistency = 0.5
 
   gen() {
-    this.list = [];
+    let list = [];
     let a = {
       type: Math.random() > 0.5 ? 1 : 0,
       width: 20 + Math.floor(Math.random() * 100),
@@ -39,11 +39,11 @@ class LayoutBasic extends migi.Component {
       a.fontSize = 0;
       a.lineHeight = 0;
     }
-    this.list.push(a);
+    list.push(a);
     this.direction = Math.random() > 0.5;
     let margin = 10 + Math.floor(Math.random() * 100);
     for(let i = 1; i < this.num; i++) {
-      let last = this.list[this.list.length - 1];
+      let last = list[list.length - 1];
       let b = {
         type: Math.random() > this.typeConsistency ? a.type : (Math.random() > 0.5 ? 1 : 0),
         width: Math.random() > this.widthConsistency ? a.width : (20 + Math.floor(Math.random() * 100)),
@@ -121,8 +121,9 @@ class LayoutBasic extends migi.Component {
           b.x = Math.floor(Math.random() * 20);
         }
       }
-      this.list.push(b);
+      list.push(b);
     }
+    this.list = list;
   }
   clickY() {
     this.click(1);
@@ -136,7 +137,7 @@ class LayoutBasic extends migi.Component {
     }
     this.dis = true;
     $net.postJSON({
-      url: '/api/d1',
+      url: '/api/1',
       body: {
         list: this.list,
         direction: this.direction,

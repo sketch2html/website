@@ -17,9 +17,11 @@ module.exports = app => {
   router.get('/layout', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.index);
   router.get('/layout/1', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d1);
   router.get('/layout/2_2_3', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2_3);
+  router.get('/layout/2_2', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2);
   router.get('/layout/2_2_4', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_2_4);
   router.get('/layout/2_3_6', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.d2_3_6);
-  router.post('/layout/api/d1', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.d1);
-  router.post('/layout/api/gen', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.gen);
+  router.post('/layout/api/1', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.d1);
+  router.post('/layout/api/2_2', app.middlewares.needLoginJson(), app.middlewares.needAdminJson(), controller.layout.api.index.d2_2);
+  router.get('/layout/view/basic/:id', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.basicView);
   router.get('/layout/view/:id', app.middlewares.needLogin(), app.middlewares.needAdmin(), controller.layout.index.view);
 };
