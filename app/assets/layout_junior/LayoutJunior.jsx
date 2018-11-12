@@ -233,7 +233,7 @@ class LayoutJunior extends migi.Component {
     }
     this.dis = true;
     $net.postJSON({
-      url: '/api/d2_2',
+      url: '/api/2_2',
       body: {
         list: this.list,
         num: this.num,
