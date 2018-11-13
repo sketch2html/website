@@ -14,14 +14,6 @@ module.exports = app => {
       type: Sequelize.JSON,
       allowNull: false,
     },
-    row: {
-      type: Sequelize.TINYINT.UNSIGNED,
-      allowNull: false,
-    },
-    col: {
-      type: Sequelize.TINYINT.UNSIGNED,
-      allowNull: false,
-    },
     num: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
@@ -29,10 +21,7 @@ module.exports = app => {
     classify: {
       type: Sequelize.TINYINT,
       allowNull: false,
-    },
-    forecast: {
-      type: Sequelize.TINYINT,
-      allowNull: true,
+      comment: '0不成组；1成行；2成列',
     },
     create_time: {
       type: Sequelize.DATE,
@@ -47,16 +36,12 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'num_col_row',
-        fields: ['num', 'col', 'row'],
+        name: 'num',
+        fields: ['num'],
       },
       {
-        name: 'col_row',
-        fields: ['col', 'row'],
-      },
-      {
-        name: 'classify_forecast',
-        fields: ['classify', 'forecast'],
+        name: 'classify_num',
+        fields: ['classify', 'num'],
       },
     ],
     comment: '初级布局数据',

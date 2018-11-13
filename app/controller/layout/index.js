@@ -22,24 +22,6 @@ class Controller extends egg.Controller {
     });
   }
 
-  async d2_2_3() {
-    const { ctx } = this;
-    await ctx.render('layout_junior', {
-      row: 2,
-      col: 2,
-      num: 3,
-    });
-  }
-
-  async d2_2_4() {
-    const { ctx } = this;
-    await ctx.render('layout_junior', {
-      row: 2,
-      col: 2,
-      num: 4,
-    });
-  }
-
   async d2_3_6() {
     const { ctx } = this;
     await ctx.render('layout_senior', {
@@ -57,7 +39,10 @@ class Controller extends egg.Controller {
     }
     let res = await app.model.layout.Basic.findOne({
       attributes: [
+        'id',
         'data',
+        'num',
+        'direction',
         'classify'
       ],
       where: {
@@ -68,7 +53,7 @@ class Controller extends egg.Controller {
     if(!res) {
       return;
     }
-    await ctx.render('layout_view', {
+    await ctx.render('layout_basic_view', {
       item: res,
     });
   }

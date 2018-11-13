@@ -6,9 +6,9 @@ module.exports = {
     passport_register: './app/view/passport_register.jsx',
     layout_index: './app/view/layout_index.jsx',
     layout_basic: './app/view/layout_basic.jsx',
+    layout_basic_view: './app/view/layout_basic_view.jsx',
     layout_junior: './app/view/layout_junior.jsx',
     layout_senior: './app/view/layout_senior.jsx',
-    layout_view: './app/view/layout_view.jsx',
   },
   output: {
     path: __dirname + '/app/view',
