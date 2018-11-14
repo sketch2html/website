@@ -19,9 +19,9 @@ module.exports = app => {
       allowNull: false,
     },
     classify: {
-      type: Sequelize.TINYINT,
+      type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      comment: '0不成组；1成行；2成列',
+      comment: '0非行列；1普行；2普列；3普行列取普行；4组行；5组列；6组行列',
     },
     create_time: {
       type: Sequelize.DATE,

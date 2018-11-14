@@ -58,7 +58,7 @@ class Controller extends egg.Controller {
     });
   }
 
-  async view() {
+  async juniorView() {
     const { ctx, app } = this;
     let id = parseInt(ctx.params.id);
     if(!id) {
@@ -66,6 +66,7 @@ class Controller extends egg.Controller {
     }
     let res = await app.model.layout.Junior.findOne({
       attributes: [
+        'id',
         'data',
         'classify'
       ],
@@ -77,7 +78,7 @@ class Controller extends egg.Controller {
     if(!res) {
       return;
     }
-    await ctx.render('layout_view', {
+    await ctx.render('layout_junior_view', {
       item: res,
     });
   }

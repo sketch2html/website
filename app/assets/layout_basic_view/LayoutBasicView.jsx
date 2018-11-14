@@ -166,7 +166,7 @@ const wv = tf.variable(tf.tensor2d([[-5.1861753 ],
   [-36.2700233]]));
 const bv = tf.variable(tf.scalar(5.2938737869262695));
 
-class LayoutBasic extends migi.Component {
+class LayoutBasicView extends migi.Component {
   constructor(data) {
     super(data);
   }
@@ -174,6 +174,7 @@ class LayoutBasic extends migi.Component {
     let { id, data, direction } = this.props.item;
     let param = parse(data, direction);
     let res = direction ? fh([param]) : fv([param]);
+
     return <div className="g-wrap layout-basic">
       <p>{JSON.stringify(data)}</p>
       <p>{JSON.stringify(param)}</p>
@@ -195,4 +196,4 @@ class LayoutBasic extends migi.Component {
   }
 }
 
-export default LayoutBasic;
+export default LayoutBasicView;

@@ -12,6 +12,7 @@ module.exports = {
     layout_basic: './app/assets/layout_basic/index.jsx',
     layout_basic_view: './app/assets/layout_basic_view/index.jsx',
     layout_junior: './app/assets/layout_junior/index.jsx',
+    layout_junior_view: './app/assets/layout_junior_view/index.jsx',
     layout_senior: './app/assets/layout_senior/index.jsx',
   },
   output: {

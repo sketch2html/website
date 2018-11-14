@@ -8,10 +8,9 @@ class LayoutJunior extends migi.Component {
     });
   }
 
-  @bind list
-  @bind dis
-  @bind direction
-  @bind num = 4
+  @eval list
+  @eval dis
+  @eval num = 4
   @bind typeConsistency = 0.5
   @bind widthConsistencyH = 0.5
   @bind widthConsistencyV = 0.5
@@ -29,7 +28,6 @@ class LayoutJunior extends migi.Component {
   @bind fontConsistencyV = 0.5
   @bind lineConsistencyH = 0.5
   @bind lineConsistencyV = 0.5
-  @bind hm
 
   gen() {
     let list = [];
@@ -236,11 +234,23 @@ class LayoutJunior extends migi.Component {
   clickN() {
     this.click(0);
   }
-  clickRow() {
+  clickR() {
     this.click(1);
   }
-  clickCol() {
+  clickC() {
     this.click(2);
+  }
+  clickRC() {
+    this.click(3);
+  }
+  clickRow() {
+    this.click(4);
+  }
+  clickCol() {
+    this.click(5);
+  }
+  clickRowCol() {
+    this.click(6);
   }
   click(classify) {
     if(this.dis) {
@@ -272,15 +282,16 @@ class LayoutJunior extends migi.Component {
     this.gen();
   }
   hmGen() {
-    if(this.hm) {
-      this.list = JSON.parse(this.hm);
+    let ta = this.ref.ta.element.value;
+    if(ta && ta.trim()) {
+      this.list = JSON.parse(ta);
     }
   }
   render() {
     return <div class="g-wrap layout-basic">
       <div className="config">
         <label>数量</label><input type="range" min="3" max="4" step="1" value={this.num}/>
-        <label>类型一致性H</label><input type="range" min="0" max="1" step="0.1" value={this.typeConsistency}/>
+        <label>类型一致性</label><input type="range" min="0" max="1" step="0.1" value={this.typeConsistency}/>
         <label>宽度一致性H</label><input type="range" min="0" max="1" step="0.1" value={this.widthConsistencyH}/>
         <label>宽度一致性V</label><input type="range" min="0" max="1" step="0.1" value={this.widthConsistencyV}/>
         <label>高度一致性H</label><input type="range" min="0" max="1" step="0.1" value={this.heightConsistencyH}/>
@@ -299,13 +310,15 @@ class LayoutJunior extends migi.Component {
         <label>行高一致性V</label><input type="range" min="0" max="1" step="0.1" value={this.lineConsistencyV}/>
       </div>
       <div class="btn">
-        <button disabled={this.dis} onClick={this.clickN}>不成组</button>
-        <button disabled={this.dis} onClick={this.clickRow}>2行</button>
-        <button disabled={this.dis} onClick={this.clickCol}>2列</button>
         <button disabled={this.dis} onClick={this.clickGen}>不确定</button>
+        <button disabled={this.dis} onClick={this.clickR}>2行</button>
+        <button disabled={this.dis} onClick={this.clickC}>2列</button>
+        <button disabled={this.dis} onClick={this.clickRC}>2行列</button>
+        <button disabled={this.dis} onClick={this.clickRow}>2组行</button>
+        <button disabled={this.dis} onClick={this.clickCol}>2组列</button>
+        <button disabled={this.dis} onClick={this.clickRowCol}>2组行列</button>
       </div>
-      <p>{JSON.stringify(this.list)}</p>
-      <textarea>{this.hm}</textarea>
+      <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
       <button onClick={this.hmGen}>手动生成</button>
       <ul class="list">
         {
