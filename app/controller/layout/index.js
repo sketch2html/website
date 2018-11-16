@@ -22,6 +22,12 @@ class Controller extends egg.Controller {
     });
   }
 
+  async col() {
+    const { ctx } = this;
+    await ctx.render('layout_col', {
+    });
+  }
+
   async d2_3_6() {
     const { ctx } = this;
     await ctx.render('layout_senior', {
@@ -79,6 +85,33 @@ class Controller extends egg.Controller {
       return;
     }
     await ctx.render('layout_junior_view', {
+      item: res,
+    });
+  }
+
+  async colView() {
+    const { ctx, app } = this;
+    let id = parseInt(ctx.params.id);
+    if(!id) {
+      return;
+    }
+    let res = await app.model.layout.Col.findOne({
+      attributes: [
+        'id',
+        'data',
+        'row',
+        'col',
+        'classify'
+      ],
+      where: {
+        id,
+      },
+      raw: true,
+    });
+    if(!res) {
+      return;
+    }
+    await ctx.render('layout_col_view', {
       item: res,
     });
   }

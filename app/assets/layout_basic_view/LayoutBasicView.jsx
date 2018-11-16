@@ -175,7 +175,7 @@ class LayoutBasicView extends migi.Component {
     let param = parse(data, direction);
     let res = direction ? fh([param]) : fv([param]);
 
-    return <div className="g-wrap layout-basic">
+    return <div class="g-wrap layout-basic">
       <p>{JSON.stringify(data)}</p>
       <p>{JSON.stringify(param)}</p>
       <p>{res}</p>

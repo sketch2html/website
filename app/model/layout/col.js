@@ -3,7 +3,7 @@
 module.exports = app => {
   const Sequelize = app.Sequelize;
 
-  return app.model.layout.define('junior', {
+  return app.model.layout.define('col', {
     id: {
       type: Sequelize.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -14,10 +14,18 @@ module.exports = app => {
       type: Sequelize.JSON,
       allowNull: false,
     },
+    row: {
+      type: Sequelize.TINYINT.UNSIGNED,
+      allowNull: false,
+    },
+    col: {
+      type: Sequelize.TINYINT.UNSIGNED,
+      allowNull: false,
+    },
     classify: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      comment: '0非行列；1普行；2普列；3普行列；4组行；5组列；6组行列',
+      comment: '0等分列；非等分列',
     },
     create_time: {
       type: Sequelize.DATE,
@@ -32,10 +40,14 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        name: 'classify',
-        fields: ['classify'],
+        name: 'col',
+        fields: ['col'],
+      },
+      {
+        name: 'classify_col',
+        fields: ['classify', 'col'],
       },
     ],
-    comment: '初级布局数据',
+    comment: '等分列布局数据',
   });
 };
