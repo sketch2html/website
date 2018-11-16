@@ -13,6 +13,8 @@ module.exports = {
     layout_basic_view: './app/assets/layout_basic_view/index.jsx',
     layout_junior: './app/assets/layout_junior/index.jsx',
     layout_junior_view: './app/assets/layout_junior_view/index.jsx',
+    layout_row: './app/assets/layout_row/index.jsx',
+    layout_row_view: './app/assets/layout_row_view/index.jsx',
     layout_col: './app/assets/layout_col/index.jsx',
     layout_col_view: './app/assets/layout_col_view/index.jsx',
     layout_senior: './app/assets/layout_senior/index.jsx',

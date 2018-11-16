@@ -9,6 +9,8 @@ module.exports = {
     layout_basic_view: './app/view/layout_basic_view.jsx',
     layout_junior: './app/view/layout_junior.jsx',
     layout_junior_view: './app/view/layout_junior_view.jsx',
+    layout_row: './app/view/layout_row.jsx',
+    layout_row_view: './app/view/layout_row_view.jsx',
     layout_col: './app/view/layout_col.jsx',
     layout_col_view: './app/view/layout_col_view.jsx',
     layout_senior: './app/view/layout_senior.jsx',

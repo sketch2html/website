@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 async function layout(u, p, host) {
   let basic = require('./app/model/layout/basic');
   let junior = require('./app/model/layout/junior');
+  let row = require('./app/model/layout/row');
   let col = require('./app/model/layout/col');
   let senior = require('./app/model/layout/senior');
   let sequelize = new Sequelize('layout', u, p, {
@@ -30,6 +31,12 @@ async function layout(u, p, host) {
       layout: sequelize,
     },
   });
+  row = row({
+    Sequelize,
+    model: {
+      layout: sequelize,
+    },
+  });
   col = col({
     Sequelize,
     model: {
@@ -44,6 +51,7 @@ async function layout(u, p, host) {
   });
   await basic.sync({ alter: true });
   await junior.sync({ alter: true });
+  await row.sync({ alter: true });
   await col.sync({ alter: true });
   await senior.sync({ alter: true });
 }

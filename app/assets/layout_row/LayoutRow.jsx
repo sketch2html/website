@@ -1,6 +1,6 @@
 'use strict';
 
-class LayoutCol extends migi.Component {
+class LayoutRow extends migi.Component {
   constructor(data) {
     super(data);
     this.on(migi.Event.DOM, () => {
@@ -247,7 +247,7 @@ class LayoutCol extends migi.Component {
     }
     this.dis = true;
     $net.postJSON({
-      url: '/api/col',
+      url: '/api/row',
       body: {
         list: this.list,
         row: this.row,
@@ -302,8 +302,8 @@ class LayoutCol extends migi.Component {
       </div>
       <div className="btn">
         <button disabled={this.dis} onClick={this.clickGen}>不确定</button>
-        <button disabled={this.dis} onClick={this.clickY}>是等分列</button>
-        <button disabled={this.dis} onClick={this.clickN}>不是等分列</button>
+        <button disabled={this.dis} onClick={this.clickY}>是等分行</button>
+        <button disabled={this.dis} onClick={this.clickN}>不是等分行</button>
       </div>
       <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
       <button onClick={this.hmGen}>手动生成</button>
@@ -320,4 +320,4 @@ class LayoutCol extends migi.Component {
   }
 }
 
-export default LayoutCol;
+export default LayoutRow;
