@@ -10,7 +10,7 @@ export default function(data) {
   );
 
   return data.helper.start({
-    title: '列布局预览',
+    title: '行布局预览',
     css: '/layout_basic.css',
   }) + layoutRowView + data.helper.end({
     js: '/layout_row_view.js',

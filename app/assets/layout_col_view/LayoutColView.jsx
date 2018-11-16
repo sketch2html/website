@@ -61,13 +61,13 @@ function parse(data, row, col) {
     let count = 0;
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
-      if(Math.abs(startH - item.y) < 3) {
+      if(Math.abs(startH - item.y) < 2) {
         count++;
       }
-      if(Math.abs(centerH - item.y - item.height * 0.5) < 3) {
+      if(Math.abs(centerH - item.y - item.height * 0.5) < 2) {
         count++;
       }
-      if(Math.abs(endH - item.y - item.height) < 3) {
+      if(Math.abs(endH - item.y - item.height) < 2) {
         count++;
       }
     }
@@ -97,13 +97,13 @@ function parse(data, row, col) {
     let count = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      if(Math.abs(startV - item.x) < 3) {
+      if(Math.abs(startV - item.x) < 2) {
         count++;
       }
-      if(Math.abs(centerV - item.x - item.width * 0.5) < 3) {
+      if(Math.abs(centerV - item.x - item.width * 0.5) < 2) {
         count++;
       }
-      if(Math.abs(endV - item.x - item.width) < 3) {
+      if(Math.abs(endV - item.x - item.width) < 2) {
         count++;
       }
     }
@@ -115,6 +115,48 @@ function parse(data, row, col) {
     alignV += item;
   });
   alignV /= alignVs.length;
+  // 水平对齐出格性，防止某一格完全不对齐且差距大，但其它格对齐
+  let alignDiffHs = [];
+  for(let i = 0; i < row; i++) {
+    let startH = 0;
+    let centerH = 0;
+    let endH = 0;
+    for(let j = 0; j < col; j++) {
+      let item = data[i * col + j];
+      startH += item.y;
+      centerH += item.y + item.height * 0.5;
+      endH += item.y + item.height;
+    }
+    startH /= col;
+    centerH /= col;
+    endH /= col;
+    let count = 0;
+    let sum = 0;
+    for(let j = 0; j < col; j++) {
+      let item = data[i * col + j];
+      if(Math.abs(startH - item.y) < 2) {
+      }
+      else if(Math.abs(centerH - item.y - item.height * 0.5) < 2) {
+      }
+      else if(Math.abs(endH - item.y - item.height) < 2) {
+      }
+      else {
+        let diff = Math.max(Math.abs(startH - item.y), Math.abs(endH - item.y - item.height));
+        sum += diff;
+        count++;
+      }
+    }
+    sum /= count;
+    if(isNaN(sum)) {
+      sum = 0;
+    }
+    alignDiffHs.push(sum);
+  }
+  let alignHDiff = 0;
+  alignDiffHs.forEach(item => {
+    alignHDiff += item;
+  });
+  alignHDiff /= alignDiffHs.length;
   // 垂直对齐出格性，防止某一格完全不对齐且差距大，但其它格对齐
   let alignDiffVs = [];
   for(let i = 0; i < col; i++) {
@@ -134,11 +176,11 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      if(Math.abs(startV - item.x) < 3) {
+      if(Math.abs(startV - item.x) < 2) {
       }
-      else if(Math.abs(centerV - item.x - item.width * 0.5) < 3) {
+      else if(Math.abs(centerV - item.x - item.width * 0.5) < 2) {
       }
-      else if(Math.abs(endV - item.x - item.width) < 3) {
+      else if(Math.abs(endV - item.x - item.width) < 2) {
       }
       else {
         let diff = Math.max(Math.abs(startV - item.x), Math.abs(endV - item.x - item.width));
@@ -249,8 +291,31 @@ function parse(data, row, col) {
   lineHeights.forEach(item => {
     lineHeightRow = Math.max(lineHeightRow, item);
   });
+  // 水平间距一致性
+  let marginH = 0;
+  for(let i = 0; i < row; i++) {
+    let max = 0;
+    let min = 0;
+    for(let j = 1; j < col; j++) {
+      let item = data[i * col + j];
+      let prev = data[i * col + j - 1];
+      if(j > 1) {
+        max = Math.max(max, Math.abs(item.x - prev.x - prev.width));
+        min = Math.min(min, Math.abs(item.x - prev.x - prev.width));
+      }
+      else {
+        max = min = Math.abs(item.x - prev.x - prev.width);
+      }
+    }
+    let diff = max - min;
+    diff /= max;
+    if(isNaN(diff)) {
+      diff = 0;
+    }
+    marginH = Math.max(marginH, diff);
+  }
 
-  return [row, col, type, alignH, alignV, alignDiff, alignVDiff, distance / height, widthRow, heightRow, fontSizeRow, lineHeightRow];
+  return [row, col, type, alignH, alignV, alignDiff, alignHDiff, alignVDiff, distance / height, widthRow, heightRow, fontSizeRow, lineHeightRow, marginH];
 }
 
 const f = (x, w, b) => {
@@ -258,19 +323,21 @@ const f = (x, w, b) => {
   return tf.sigmoid(h);
 };
 
-const w = tf.variable(tf.tensor2d([[5.8946266  ],
-  [-0.7705983 ],
-  [-3.3163865 ],
-  [6.0227733  ],
-  [-1.4216534 ],
-  [7.1699662  ],
-  [-5.7411933 ],
-  [-16.3118019],
-  [-33.4609985],
-  [-25.0945034],
-  [-29.7213593],
-  [-29.7530136]]));
-const b = tf.variable(tf.scalar(-5.055537223815918));
+const w = tf.variable(tf.tensor2d([[3.9451959  ],
+  [0.6164125  ],
+  [-2.9863913 ],
+  [3.6915784  ],
+  [2.2784438  ],
+  [2.4952114  ],
+  [-3.9345748 ],
+  [-3.2482851 ],
+  [-13.7077465],
+  [0.6327836  ],
+  [-30.0983143],
+  [-34.3679581],
+  [-35.606144 ],
+  [-18.7878437]]));
+const b = tf.variable(tf.scalar(-6.413879871368408));
 
 class LayoutColView extends migi.Component {
   constructor(data) {
