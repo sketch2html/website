@@ -12,10 +12,10 @@ class LayoutIndex extends migi.Component {
           <a href="/1">1行/1列</a>
         </li>
         <li>
-          <a href="/2_2">2行2列</a>
+          <a href="/row">行布局</a>
         </li>
         <li>
-          <a href="/2_3_6">2行3列，6个</a>
+          <a href="/col">列布局</a>
         </li>
       </ul>
     </div>;
