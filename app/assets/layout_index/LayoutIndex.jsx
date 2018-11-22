@@ -9,7 +9,7 @@ class LayoutIndex extends migi.Component {
     return <div class="g-wrap layout-index">
       <ul>
         <li>
-          <a href="/1">1行/1列</a>
+          <a href="/basic">1行/1列</a>
         </li>
         <li>
           <a href="/row">行布局</a>

@@ -8,17 +8,9 @@ class Controller extends egg.Controller {
     await ctx.render('layout_index', {});
   }
 
-  async d1() {
+  async basic() {
     const { ctx } = this;
     await ctx.render('layout_basic', {
-    });
-  }
-
-  async d2_2() {
-    const { ctx } = this;
-    await ctx.render('layout_junior', {
-      row: 2,
-      col: 2,
     });
   }
 
@@ -31,15 +23,6 @@ class Controller extends egg.Controller {
   async col() {
     const { ctx } = this;
     await ctx.render('layout_col', {
-    });
-  }
-
-  async d2_3_6() {
-    const { ctx } = this;
-    await ctx.render('layout_senior', {
-      row: 2,
-      col: 3,
-      num: 6,
     });
   }
 

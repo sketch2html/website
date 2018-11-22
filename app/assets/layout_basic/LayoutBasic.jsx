@@ -137,7 +137,7 @@ class LayoutBasic extends migi.Component {
     }
     this.dis = true;
     $net.postJSON({
-      url: '/api/1',
+      url: '/api/basic',
       body: {
         list: this.list,
         direction: this.direction,
