@@ -3,6 +3,7 @@
 const tf = require('@tensorflow/tfjs');
 
 function parse(data, row, col) {
+  let allText = 1;
   // 列类型平均一致性，每行的话算平均性，再算绝对差，再除以最大权值（假设全部为1），范围为[0, 0.5]
   let types = [];
   for(let i = 0; i < row; i++) {
@@ -10,6 +11,9 @@ function parse(data, row, col) {
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
       total += item.type;
+      if(item.type === 0) {
+        allText = 0;
+      }
     }
     let average = total / col;
     let sum = 0;
@@ -26,7 +30,7 @@ function parse(data, row, col) {
   });
   type /= types.length;
   // 间距比
-  let height = 0;
+  let ht = 0;
   let distance = 0;
   for(let i = 1; i < row; i++) {
     let max = 0;
@@ -39,7 +43,7 @@ function parse(data, row, col) {
     if(i === row - 1) {
       for(let j = 0; j < col; j++) {
         let item = data[i * col + j];
-        height = Math.max(height, item.y + item.height);
+        ht = Math.max(ht, item.y + item.height);
       }
     }
   }
@@ -201,8 +205,10 @@ function parse(data, row, col) {
   alignVDiff /= alignDiffVs.length;
   // 对齐提升
   let alignDiff = alignH - alignV;
-  // 宽行一致性
+  // 宽行一致性，宽行一致出格性，单个宽出格性
   let widths = [];
+  let widthRow = 0;
+  let widthRowDiff = 0;
   for(let i = 0; i < row; i++) {
     let total = 0;
     for(let j = 0; j < col; j++) {
@@ -213,17 +219,23 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
-      sum += Math.abs(average - item.width);
+      let n = Math.abs(average - item.width);
+      sum += n;
+      widthRowDiff = Math.max(widthRowDiff, n / average || 0);
     }
     sum /= total;
     widths.push(sum);
   }
-  let widthRow = 0;
+  let width = 0;
   widths.forEach(item => {
+    width += item;
     widthRow = Math.max(widthRow, item);
   });
-  // 高行一致性
+  width /= widths.length;
+  // 高行一致性，高行一致出格性，单个高出格性
   let heights = [];
+  let heightRow = 0;
+  let heightRowDiff = 0;
   for(let i = 0; i < row; i++) {
     let total = 0;
     for(let j = 0; j < col; j++) {
@@ -234,17 +246,23 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
-      sum += Math.abs(average - item.height);
+      let n = Math.abs(average - item.height);
+      sum += n;
+      heightRowDiff = Math.max(heightRowDiff, n / average || 0);
     }
     sum /= total;
     heights.push(sum);
   }
-  let heightRow = 0;
+  let height = 0;
   heights.forEach(item => {
+    height += item;
     heightRow = Math.max(heightRow, item);
   });
-  // 字体行一致性
+  height /= heights.length;
+  // 字体行一致性，行一致出格性，单个出格性
   let fontSizes = [];
+  let fontSizeRow = 0;
+  let fontSizeRowDiff = 0;
   for(let i = 0; i < row; i++) {
     let total = 0;
     for(let j = 0; j < col; j++) {
@@ -255,7 +273,9 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
-      sum += Math.abs(average - item.fontSize);
+      let n = Math.abs(average - item.fontSize);
+      sum += n;
+      fontSizeRowDiff = Math.max(fontSizeRowDiff, n / average || 0);
     }
     sum /= total;
     if(total === 0) {
@@ -263,12 +283,16 @@ function parse(data, row, col) {
     }
     fontSizes.push(sum);
   }
-  let fontSizeRow = 0;
+  let fontSize = 0;
   fontSizes.forEach(item => {
+    fontSize += item;
     fontSizeRow = Math.max(fontSizeRow, item);
   });
-  // 行高行一致性
+  fontSize /= fontSizes.length;
+  // 行高行一致性，行高一致出格性，单个出格性
   let lineHeights = [];
+  let lineHeightRow = 0;
+  let lineHeightRowDiff = 0;
   for(let i = 0; i < row; i++) {
     let total = 0;
     for(let j = 0; j < col; j++) {
@@ -279,7 +303,9 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < col; j++) {
       let item = data[i * col + j];
-      sum += Math.abs(average - item.lineHeight);
+      let n = Math.abs(average - item.lineHeight);
+      sum += n;
+      lineHeightRowDiff = Math.max(lineHeightRowDiff, n / average || 0);
     }
     sum /= total;
     if(total === 0) {
@@ -287,10 +313,12 @@ function parse(data, row, col) {
     }
     lineHeights.push(sum);
   }
-  let lineHeightRow = 0;
+  let lineHeight = 0;
   lineHeights.forEach(item => {
+    lineHeight += item;
     lineHeightRow = Math.max(lineHeightRow, item);
   });
+  lineHeight /= lineHeights.length;
   // 水平间距一致性
   let marginH = 0;
   for(let i = 0; i < row; i++) {
@@ -315,7 +343,7 @@ function parse(data, row, col) {
     marginH = Math.max(marginH, diff);
   }
 
-  return [row, col, type, alignH, alignV, alignDiff, alignHDiff, alignVDiff, distance / height, widthRow, heightRow, fontSizeRow, lineHeightRow, marginH];
+  return [row, col, allText, type, alignH, alignV, alignDiff, alignHDiff, alignVDiff, distance / ht, width, widthRow, widthRowDiff, height, heightRow, heightRowDiff, fontSize, fontSizeRow, fontSizeRowDiff, lineHeight, lineHeightRow, lineHeightRowDiff, marginH];
 }
 
 const f = (x, w, b) => {
@@ -323,27 +351,37 @@ const f = (x, w, b) => {
   return tf.sigmoid(h);
 };
 
-const w = tf.variable(tf.tensor2d([[3.9451959  ],
-  [0.6164125  ],
-  [-2.9863913 ],
-  [3.6915784  ],
-  [2.2784438  ],
-  [2.4952114  ],
-  [-3.9345748 ],
-  [-3.2482851 ],
-  [-13.7077465],
-  [0.6327836  ],
-  [-30.0983143],
-  [-34.3679581],
-  [-35.606144 ],
-  [-18.7878437]]));
-const b = tf.variable(tf.scalar(-6.413879871368408));
+const w = tf.variable(tf.tensor2d([
+  1.4430301189422607,
+  0.6951603293418884,
+  -0.20091697573661804,
+  -1.3960137367248535,
+  0.9645492434501648,
+  0.6312721967697144,
+  0.9975471496582031,
+  -2.8683295249938965,
+  -1.6589916944503784,
+  -7.5311279296875,
+  -3.8714444637298584,
+  1.513302206993103,
+  1.7055970430374146,
+  -8.049519538879395,
+  -7.765089988708496,
+  -7.484204292297363,
+  -10.79858684539795,
+  -10.414084434509277,
+  -10.290769577026367,
+  -6.17625093460083,
+  -6.636294841766357,
+  -7.162513256072998,
+  -11.630932807922363 ], [23, 1]));
+const b = tf.variable(tf.scalar(-1.4506675004959106));
 
-export default function(data, row, col) {
+module.exports = function(data, row, col) {
   let param = parse(data, row, col);
   let res = f([param], w, b);
   return {
     param,
     forecast: res.get(0, 0),
   };
-}
+};

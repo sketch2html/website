@@ -3,6 +3,7 @@
 const tf = require('@tensorflow/tfjs');
 
 function parse(data, row, col) {
+  let allText = 1;
   // 行类型平均一致性，每行的话算平均性，再算绝对差，再除以最大权值（假设全部为1），范围为[0, 0.5]
   let types = [];
   for(let i = 0; i < col; i++) {
@@ -10,6 +11,9 @@ function parse(data, row, col) {
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
       total += item.type;
+      if(item.type === 0) {
+        allText = 0;
+      }
     }
     let average = total / row;
     let sum = 0;
@@ -26,7 +30,7 @@ function parse(data, row, col) {
   });
   type /= types.length;
   // 间距比
-  let height = 0;
+  let ht = 0;
   let distance = 0;
   for(let i = 1; i < row; i++) {
     let max = 0;
@@ -39,7 +43,7 @@ function parse(data, row, col) {
     if(i === row - 1) {
       for(let j = 0; j < col; j++) {
         let item = data[i * col + j];
-        height = Math.max(height, item.y + item.height);
+        ht = Math.max(ht, item.y + item.height);
       }
     }
   }
@@ -218,8 +222,10 @@ function parse(data, row, col) {
   alignVDiff /= alignDiffVs.length;
   // 对齐提升
   let alignDiff = alignH - alignV;
-  // 宽列一致性
+  // 宽列一致性，宽列一致出格性，单个宽出格性
   let widths = [];
+  let widthCol = 0;
+  let widthColDiff = 0;
   for(let i = 0; i < col; i++) {
     let total = 0;
     for(let j = 0; j < row; j++) {
@@ -230,17 +236,23 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      sum += Math.abs(average - item.width);
+      let n = Math.abs(average - item.width);
+      sum += n;
+      widthColDiff = Math.max(widthColDiff, n / average || 0);
     }
     sum /= total;
     widths.push(sum);
   }
-  let widthRow = 0;
+  let width = 0;
   widths.forEach(item => {
-    widthRow = Math.max(widthRow, item);
+    width += item;
+    widthCol = Math.max(widthCol, item);
   });
-  // 高列一致性
+  width /= widths.length;
+  // 高列一致性，高列一致出格性，单个高出格性
   let heights = [];
+  let heightCol = 0;
+  let heightColDiff = 0;
   for(let i = 0; i < col; i++) {
     let total = 0;
     for(let j = 0; j < row; j++) {
@@ -251,17 +263,23 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      sum += Math.abs(average - item.height);
+      let n = Math.abs(average - item.height);
+      sum += n;
+      heightColDiff = Math.max(heightColDiff, n / average || 0);
     }
     sum /= total;
     heights.push(sum);
   }
-  let heightRow = 0;
+  let height = 0;
   heights.forEach(item => {
-    heightRow = Math.max(heightRow, item);
+    height += item;
+    heightCol = Math.max(heightCol, item);
   });
-  // 字体列一致性
+  height /= heights.length;
+  // 字体列一致性，列一致出格性，单个出格性
   let fontSizes = [];
+  let fontSizeCol = 0;
+  let fontSizeColDiff = 0;
   for(let i = 0; i < col; i++) {
     let total = 0;
     for(let j = 0; j < row; j++) {
@@ -272,7 +290,9 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      sum += Math.abs(average - item.fontSize);
+      let n = Math.abs(average - item.fontSize);
+      sum += n;
+      fontSizeColDiff = Math.max(fontSizeColDiff, n / average || 0);
     }
     sum /= total;
     if(total === 0) {
@@ -280,12 +300,16 @@ function parse(data, row, col) {
     }
     fontSizes.push(sum);
   }
-  let fontSizeRow = 0;
+  let fontSize = 0;
   fontSizes.forEach(item => {
-    fontSizeRow = Math.max(fontSizeRow, item);
+    fontSize += item;
+    fontSizeCol = Math.max(fontSizeCol, item);
   });
-  // 行高列一致性
+  fontSize /= fontSizes.length;
+  // 行高列一致性，行高一致出格性，单个出格性
   let lineHeights = [];
+  let lineHeightCol = 0;
+  let lineHeightColDiff = 0;
   for(let i = 0; i < col; i++) {
     let total = 0;
     for(let j = 0; j < row; j++) {
@@ -296,7 +320,9 @@ function parse(data, row, col) {
     let sum = 0;
     for(let j = 0; j < row; j++) {
       let item = data[j * col + i];
-      sum += Math.abs(average - item.lineHeight);
+      let n = Math.abs(average - item.lineHeight);
+      sum += n;
+      lineHeightColDiff = Math.max(lineHeightColDiff, n / average || 0);
     }
     sum /= total;
     if(total === 0) {
@@ -304,10 +330,12 @@ function parse(data, row, col) {
     }
     lineHeights.push(sum);
   }
-  let lineHeightRow = 0;
+  let lineHeight = 0;
   lineHeights.forEach(item => {
-    lineHeightRow = Math.max(lineHeightRow, item);
+    lineHeight += item;
+    lineHeightCol = Math.max(lineHeightCol, item);
   });
+  lineHeight /= lineHeights.length;
   // 垂直间距一致性
   let marginV = 0;
   for(let i = 0; i < col; i++) {
@@ -332,7 +360,7 @@ function parse(data, row, col) {
     marginV = Math.max(marginV, diff);
   }
 
-  return [row, col, type, alignH, alignV, alignDiff, alignHDiff, alignVDiff, distance / height, widthRow, heightRow, fontSizeRow, lineHeightRow, marginV];
+  return [row, col, allText, type, alignH, alignV, alignDiff, alignHDiff, alignVDiff, distance / ht, width, widthCol, widthColDiff, height, heightCol, heightColDiff, fontSize, fontSizeCol, fontSizeColDiff, lineHeight, lineHeightCol, lineHeightColDiff, marginV];
 }
 
 const f = (x, w, b) => {
@@ -340,27 +368,37 @@ const f = (x, w, b) => {
   return tf.sigmoid(h);
 };
 
-const w = tf.variable(tf.tensor2d([[3.3504825  ],
-  [-0.1716053 ],
-  [-2.5016513 ],
-  [11.7683716 ],
-  [15.7239332 ],
-  [-12.8172712],
-  [-2.7029362 ],
-  [-0.0762825 ],
-  [-8.799633  ],
-  [-25.8196983],
-  [0.9518258  ],
-  [-30.0399971],
-  [-28.7422695],
-  [-19.0351906]]));
-const b = tf.variable(tf.scalar(-19.761688232421875));
+const w = tf.variable(tf.tensor2d([
+  2.0083255767822266,
+  -0.31791117787361145,
+  4.045642852783203,
+  -1.289065957069397,
+  1.1820979118347168,
+  4.138618469238281,
+  -9.261831283569336,
+  -2.3883020877838135,
+  -0.2694131135940552,
+  -10.655627250671387,
+  -12.047514915466309,
+  -4.3455939292907715,
+  -5.0233917236328125,
+  -3.6735353469848633,
+  -1.5828726291656494,
+  -0.293669730424881,
+  -12.498136520385742,
+  -12.861517906188965,
+  -11.180801391601562,
+  -5.988503932952881,
+  -6.46907901763916,
+  -6.544981002807617,
+  -13.467001914978027 ], [23, 1]));
+const b = tf.variable(tf.scalar(-3.7541027069091797));
 
-export default function(data, row, col) {
+module.exports = function(data, row, col) {
   let param = parse(data, row, col);
   let res = f([param], w, b);
   return {
     param,
     forecast: res.get(0, 0),
   };
-}
+};

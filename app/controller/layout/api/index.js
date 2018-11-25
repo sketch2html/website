@@ -31,7 +31,7 @@ class Controller extends egg.Controller {
     let classify = body.classify;
     let row = body.row;
     let col = body.col;
-    if(!list || !col) {
+    if(!list || !row || !col) {
       ctx.body = ctx.helper.errorJSON('无效参数');
     }
     let res = await app.model.layout.Row.create({
@@ -52,7 +52,7 @@ class Controller extends egg.Controller {
     let classify = body.classify;
     let row = body.row;
     let col = body.col;
-    if(!list || !col) {
+    if(!list || !row || !col) {
       ctx.body = ctx.helper.errorJSON('无效参数');
     }
     let res = await app.model.layout.Col.create({
@@ -60,6 +60,33 @@ class Controller extends egg.Controller {
       classify,
       row,
       col,
+    }, {
+      raw: true,
+    });
+    ctx.body = ctx.helper.okJSON(res);
+  }
+
+  async junior() {
+    const { ctx, app } = this;
+    let body = ctx.request.body;
+    let list = body.list;
+    let classify = body.classify;
+    let row = body.row;
+    let col = body.col;
+    let area = body.area;
+    let direction = body.direction;
+    let directions = body.directions;
+    if(!list || !row || !col || !area || !direction | !directions) {
+      ctx.body = ctx.helper.errorJSON('无效参数');
+    }
+    let res = await app.model.layout.Junior.create({
+      data: list,
+      classify,
+      row,
+      col,
+      area,
+      direction,
+      directions,
     }, {
       raw: true,
     });

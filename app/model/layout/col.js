@@ -25,7 +25,7 @@ module.exports = app => {
     classify: {
       type: Sequelize.TINYINT.UNSIGNED,
       allowNull: false,
-      comment: '0等分列；非等分列',
+      comment: '0等分列；1非等分列',
     },
     create_time: {
       type: Sequelize.DATE,

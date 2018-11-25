@@ -26,6 +26,12 @@ class Controller extends egg.Controller {
     });
   }
 
+  async junior() {
+    const { ctx } = this;
+    await ctx.render('layout_junior', {
+    });
+  }
+
   async basicView() {
     const { ctx, app } = this;
     let id = parseInt(ctx.params.id);
@@ -49,31 +55,6 @@ class Controller extends egg.Controller {
       return;
     }
     await ctx.render('layout_basic_view', {
-      item: res,
-    });
-  }
-
-  async juniorView() {
-    const { ctx, app } = this;
-    let id = parseInt(ctx.params.id);
-    if(!id) {
-      return;
-    }
-    let res = await app.model.layout.Junior.findOne({
-      attributes: [
-        'id',
-        'data',
-        'classify'
-      ],
-      where: {
-        id,
-      },
-      raw: true,
-    });
-    if(!res) {
-      return;
-    }
-    await ctx.render('layout_junior_view', {
       item: res,
     });
   }
@@ -128,6 +109,36 @@ class Controller extends egg.Controller {
       return;
     }
     await ctx.render('layout_col_view', {
+      item: res,
+    });
+  }
+
+  async juniorView() {
+    const { ctx, app } = this;
+    let id = parseInt(ctx.params.id);
+    if(!id) {
+      return;
+    }
+    let res = await app.model.layout.Junior.findOne({
+      attributes: [
+        'id',
+        'data',
+        'row',
+        'col',
+        'direction',
+        'area',
+        'directions',
+        'classify'
+      ],
+      where: {
+        id,
+      },
+      raw: true,
+    });
+    if(!res) {
+      return;
+    }
+    await ctx.render('layout_junior_view', {
       item: res,
     });
   }

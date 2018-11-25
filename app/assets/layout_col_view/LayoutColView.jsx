@@ -5,21 +5,48 @@ import colMl from '../../ml/col';
 class LayoutColView extends migi.Component {
   constructor(data) {
     super(data);
+    let item = this.props.item;
+    this.list = item.data;
+    this.row = item.row;
+    this.col = item.col;
+    let { param, forecast } = colMl(this.list, this.row, this.col);
+    this.param = param;
+    this.forecast = forecast;
+  }
+  @eval list
+  @bind row
+  @bind col
+  @eval param
+  @eval forecast
+
+  preview() {
+    let ta = this.ref.ta.element.value;
+    if(ta && ta.trim()) {
+      this.list = JSON.parse(ta);
+      let { param, forecast } = colMl(this.list, this.row, this.col);
+      this.param = param;
+      this.forecast = forecast;
+    }
   }
   render() {
-    let { id, data, row, col } = this.props.item;
-    let { param, forecast } = colMl(data, row, col);
+    let { id } = this.props.item;
     return <div class="g-wrap layout-basic">
-      <p>{JSON.stringify(data)}</p>
-      <p>{JSON.stringify(param)}</p>
-      <p>{forecast}</p>
+      <p>{JSON.stringify(this.list)}</p>
+      <p>{JSON.stringify(this.param)}</p>
+      <p>{this.forecast}</p>
       <div>
         <a href={id-1}>上一个</a>
         <a href={id+1}>下一个</a>
       </div>
+      <div className="config">
+        <label>行数</label><input type="range" min="2" max="5" step="1" value={this.row}/>
+        <label>列数</label><input type="range" min="2" max="5" step="1" value={this.col}/>
+      </div>
+      <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
+      <button onClick={this.preview}>预览</button>
       <ul className="list">
         {
-          (data || []).map(item => {
+          (this.list || []).map(item => {
             if(!item) {
               return <li/>;
             }
