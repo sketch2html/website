@@ -39,6 +39,7 @@ class LayoutJuniorView extends migi.Component {
     let { id } = this.props.item;
     return <div class="g-wrap layout-basic">
       <p>{JSON.stringify(this.list)}</p>
+      <p>{JSON.stringify(this.area)}</p>
       <p>{JSON.stringify(this.param)}</p>
       <p>{this.forecast}</p>
       <div>
