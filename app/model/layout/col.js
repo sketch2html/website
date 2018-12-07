@@ -48,6 +48,6 @@ module.exports = app => {
         fields: ['classify', 'col'],
       },
     ],
-    comment: '等分列布局数据',
+    comment: '组列布局数据',
   });
 };
