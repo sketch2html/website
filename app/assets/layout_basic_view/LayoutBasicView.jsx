@@ -1,5 +1,7 @@
 'use strict';
 
+import basic from '../../ml/basic';
+
 const tf = require('@tensorflow/tfjs');
 
 function parse(data, direction) {
@@ -169,23 +171,46 @@ const bv = tf.variable(tf.scalar(5.2938737869262695));
 class LayoutBasicView extends migi.Component {
   constructor(data) {
     super(data);
+    let item = this.props.item;
+    this.list = item.data;
+    this.direction = item.direction;
+    let { param, forecast } = basic(this.list, this.direction);
+    this.param = param;
+    this.forecast = forecast;
+  }
+  @eval list
+  @bind direction
+  @eval param
+  @eval forecast
+
+  preview() {
+    let ta = this.ref.ta.element.value;
+    if(ta && ta.trim()) {
+      this.list = JSON.parse(ta);
+      let { param, forecast } = basic(this.list, parseInt(this.direction));
+      this.param = param;
+      this.forecast = forecast;
+    }
   }
   render() {
-    let { id, data, direction } = this.props.item;
-    let param = parse(data, direction);
-    let res = direction ? fh([param]) : fv([param]);
+    let { id } = this.props.item;
 
     return <div class="g-wrap layout-basic">
-      <p>{JSON.stringify(data)}</p>
-      <p>{JSON.stringify(param)}</p>
-      <p>{res}</p>
+      <p>{JSON.stringify(this.list)}</p>
+      <p>{JSON.stringify(this.param)}</p>
+      <p>{this.forecast}</p>
       <div>
         <a href={id-1}>上一个</a>
         <a href={id+1}>下一个</a>
       </div>
+      <div className="config">
+        <label>方向</label><input type="range" min="0" max="1" step="1" value={this.direction}/>
+      </div>
+      <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
+      <button onClick={this.preview}>预览</button>
       <ul className="list">
         {
-          (data || []).map(a => {
+          (this.list || []).map(a => {
             return <li className={`t${a.type}`}
                        style={`left:${a.x}px;top:${a.y}px;width:${a.width}px;height:${a.height}px`}>{a.type
               ? (a.fontSize + ',' + a.lineHeight) : ''}</li>;
