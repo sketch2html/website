@@ -161,6 +161,12 @@ class LayoutBasic extends migi.Component {
   clickGen() {
     this.gen();
   }
+  hmGen() {
+    let ta = this.ref.ta.element.value;
+    if(ta && ta.trim()) {
+      this.list = JSON.parse(ta);
+    }
+  }
   render() {
     return <div class="g-wrap layout-basic">
       <div class="config">
@@ -180,7 +186,8 @@ class LayoutBasic extends migi.Component {
         <button disabled={this.dis} onClick={this.clickN}>不成组</button>
         <button disabled={this.dis} onClick={this.clickGen}>不确定</button>
       </div>
-      <p>{JSON.stringify(this.list)}</p>
+      <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
+      <button onClick={this.hmGen}>手动生成</button>
       <ul class="list">
         {
           (this.list || []).map(a => {

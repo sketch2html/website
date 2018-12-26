@@ -302,8 +302,8 @@ class LayoutRow extends migi.Component {
       </div>
       <div className="btn">
         <button disabled={this.dis} onClick={this.clickGen}>不确定</button>
-        <button disabled={this.dis} onClick={this.clickY}>是等分行</button>
-        <button disabled={this.dis} onClick={this.clickN}>不是等分行</button>
+        <button disabled={this.dis} onClick={this.clickY}>是成组行</button>
+        <button disabled={this.dis} onClick={this.clickN}>不是成组行</button>
       </div>
       <textarea ref="ta">{JSON.stringify(this.list)}</textarea>
       <button onClick={this.hmGen}>手动生成</button>
