@@ -5,6 +5,7 @@ async function layout(u, p, host) {
   let junior = require('./app/model/layout/junior');
   let row = require('./app/model/layout/row');
   let col = require('./app/model/layout/col');
+  let flexRowCol = require('./app/model/layout/flex_row_ratio');
   let senior = require('./app/model/layout/senior');
   let sequelize = new Sequelize('layout', u, p, {
     host: host,
@@ -43,6 +44,12 @@ async function layout(u, p, host) {
       layout: sequelize,
     },
   });
+  flexRowCol = flexRowCol({
+    Sequelize,
+    model: {
+      layout: sequelize,
+    },
+  });
   senior = senior({
     Sequelize,
     model: {
@@ -53,6 +60,7 @@ async function layout(u, p, host) {
   await junior.sync({ alter: true });
   await row.sync({ alter: true });
   await col.sync({ alter: true });
+  await flexRowCol.sync({ alter: true });
   await senior.sync({ alter: true });
 }
 async function passport(u, p, host) {

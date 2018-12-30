@@ -12,6 +12,7 @@ module.exports = {
     layout_row: './app/view/layout_row.jsx',
     layout_row_view: './app/view/layout_row_view.jsx',
     layout_col: './app/view/layout_col.jsx',
+    layout_flex_row_ratio: './app/view/layout_flex_row_ratio.jsx',
     layout_col_view: './app/view/layout_col_view.jsx',
     layout_senior: './app/view/layout_senior.jsx',
   },

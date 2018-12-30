@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@alicloud/sms-sdk": "^1.1.6",
-    "@tensorflow/tfjs": "^0.13.5",
+    "@tensorflow/tfjs": "^0.14.1",
     "egg": "^2.12.0",
     "egg-redis": "^2.0.0",
     "egg-scripts": "^2.10.0",

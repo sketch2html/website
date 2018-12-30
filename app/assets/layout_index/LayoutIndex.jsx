@@ -17,6 +17,9 @@ class LayoutIndex extends migi.Component {
         <li>
           <a href="/col">列布局</a>
         </li>
+        <li>
+          <a href="/flexRowRatio">列等比</a>
+        </li>
       </ul>
     </div>;
   }

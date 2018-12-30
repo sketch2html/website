@@ -17,6 +17,7 @@ module.exports = {
     layout_row_view: './app/assets/layout_row_view/index.jsx',
     layout_col: './app/assets/layout_col/index.jsx',
     layout_col_view: './app/assets/layout_col_view/index.jsx',
+    layout_flex_row_ratio: './app/assets/layout_flex_row_ratio/index.jsx',
     layout_senior: './app/assets/layout_senior/index.jsx',
   },
   output: {

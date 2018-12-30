@@ -32,6 +32,12 @@ class Controller extends egg.Controller {
     });
   }
 
+  async flexRowRatio() {
+    const { ctx } = this;
+    await ctx.render('layout_flex_row_ratio', {
+    });
+  }
+
   async basicView() {
     const { ctx, app } = this;
     let id = parseInt(ctx.params.id);

@@ -35,7 +35,7 @@ class Service extends egg.Service {
 
   async admin(id) {
     if(!id) {
-      return;
+      return false;
     }
     const { app } = this;
     let cacheKey = 'admin_' + id;
@@ -53,6 +53,7 @@ class Service extends egg.Service {
       },
       raw: true,
     });
+    res = !!res;
     app.redis.setex(cacheKey, app.config.redis.time, JSON.stringify(res));
     return res;
   }
